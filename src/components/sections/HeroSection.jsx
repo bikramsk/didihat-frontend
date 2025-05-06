@@ -14,11 +14,11 @@ const HeroSection = () => {
   });
 
   const trendingDestinations = [
-    { name: 'Almora', description: 'Cultural heritage & panoramic Himalayan views' },
-    { name: 'Munsiyari', description: 'Gateway to Johar Valley & snow peaks' },
-    { name: 'Pithoragarh', description: 'Mini Kashmir of Uttarakhand' },
-    { name: 'Champawat', description: 'Historical temples & wildlife' },
-    { name: 'Berinag', description: 'Tea gardens & mountain landscapes' }
+    { name: 'Rishikesh' },
+    { name: 'Mumbai' },
+    { name: 'Jaipur' },
+    { name: 'Rajasthan' },
+    { name: 'New Delhi' }
   ];
 
   // Add click outside handler for both dropdowns
@@ -76,13 +76,10 @@ const HeroSection = () => {
 
       {/* Content */}
       <div className="relative container mx-auto px-4 pt-32 md:pt-48 lg:pt-64 pb-20">
-        <div className="text-center text-white max-w-3xl mx-auto">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 md:mb-6">
-            Explore The Divine Beauty of Uttarakhand
+        <div className="text-center text-white max-w-4xl mx-auto">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl font-bold mb-4 md:mb-10 leading-tight">
+            Explore India's Finest Destinations & Experiences
           </h1>
-          <p className="text-lg md:text-xl mb-8 md:mb-12">
-            Journey through sacred lands—where adventure meets spirituality
-          </p>
         </div>
 
         {/* Search Form */}
@@ -263,19 +260,19 @@ const HeroSection = () => {
         {/* Stats */}
         <div className="mt-12 md:mt-16 grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 max-w-4xl mx-auto text-center text-white">
           <div>
-            <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-1 md:mb-2">500+</h3>
+            <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-1 md:mb-2">5000+</h3>
             <p className="text-sm md:text-base">Destinations</p>
           </div>
           <div>
-            <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-1 md:mb-2">100+</h3>
+            <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-1 md:mb-2">1000+</h3>
             <p className="text-sm md:text-base">Hotels</p>
           </div>
           <div>
-            <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-1 md:mb-2">10K+</h3>
+            <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-1 md:mb-2">50K+</h3>
             <p className="text-sm md:text-base">Tourists</p>
           </div>
           <div>
-            <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-1 md:mb-2">2K+</h3>
+            <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-1 md:mb-2">20K+</h3>
             <p className="text-sm md:text-base">Reviews</p>
           </div>
         </div>

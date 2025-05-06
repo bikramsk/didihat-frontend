@@ -2,149 +2,106 @@ import React from 'react';
 
 const PopularDestinations = () => {
   return (
-    <section className="py-10 sm:py-12 bg-white">
+    <section className="py-8 bg-white">
       <div className="container mx-auto px-4">
         {/* Section Header */}
-        <div className="text-center mb-8 sm:mb-12">
-          <div className="flex items-center justify-center gap-2 mb-3 sm:mb-4">
-            <div className="h-[1px] w-6 sm:w-8 bg-[#84cc16]"></div>
-            <h3 className="text-[#84cc16] text-sm sm:text-base font-medium">DESTINATION</h3>
-            <div className="h-[1px] w-6 sm:w-8 bg-[#84cc16]"></div>
+        <div className="flex flex-col items-start mb-8">
+          <div className="flex items-center gap-2 mb-2">
+            <div className="h-[1px] w-8 bg-[#84cc16]"></div>
+            <span className="text-[#84cc16] font-medium uppercase tracking-wider text-sm">Popular Destinations</span>
           </div>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900">Popular Destination</h2>
+          <h2 className="text-xl md:text-2xl font-bold text-gray-900">Top Picks for Indian Travelers</h2>
         </div>
 
-        {/* Top Row - Main Layout */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-4 sm:gap-6 mb-4 sm:mb-6">
-          {/* Large Left Card */}
-          <div className="sm:col-span-2 lg:col-span-8 relative group overflow-hidden rounded-2xl">
-            <div className="aspect-[4/3]">
-              <img 
-                src="/images/destinations/auli.jpg" 
-                alt="Auli"
-                loading="lazy"
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-              />
-            </div>
-            <div className="absolute top-3 sm:top-4 left-3 sm:left-4">
-              <span className="bg-red-500 text-white px-2.5 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium">35% OFF</span>
-            </div>
-            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4 sm:p-6">
-              <div className="flex items-center gap-2 mb-1.5 sm:mb-2">
-                <span className="bg-white/20 backdrop-blur-sm text-white px-2.5 sm:px-3 py-1 rounded-full text-xs sm:text-sm">Auli</span>
+        {/* Destinations Grid */}
+        <div className="grid grid-cols-12 gap-2">
+          {/* Left Column */}
+          <div className="col-span-8 grid grid-cols-2 gap-2">
+            {/* Agra */}
+            <div className="relative group cursor-pointer">
+              <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-all duration-300 z-10 rounded-lg"></div>
+              <div className="aspect-[4/3]">
+                <img 
+                  src="/images/destinations/agra.jpg" 
+                  alt="Agra"
+                  className="w-full h-full object-cover rounded-lg"
+                  loading="lazy"
+                />
               </div>
-              <h3 className="text-white text-base sm:text-lg font-bold">Skiing Paradise</h3>
+              <div className="absolute bottom-3 left-3 z-20">
+                <h3 className="text-white font-semibold text-sm mb-0.5">Agra</h3>
+                <p className="text-white/90 text-xs">City of Taj Mahal</p>
+              </div>
+            </div>
+
+            {/* Delhi */}
+            <div className="relative group cursor-pointer">
+              <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-all duration-300 z-10 rounded-lg"></div>
+              <div className="aspect-[4/3]">
+                <img 
+                  src="/images/destinations/delhi.jpg" 
+                  alt="delhi"
+                  className="w-full h-full object-cover rounded-lg"
+                  loading="lazy"
+                />
+              </div>
+              <div className="absolute bottom-3 left-3 z-20">
+                <h3 className="text-white font-semibold text-sm mb-0.5">Delhi</h3>
+                <p className="text-white/90 text-xs">The Capital Heritage</p>
+              </div>
+            </div>
+
+            {/* Varanasi */}
+            <div className="relative group cursor-pointer">
+              <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-all duration-300 z-10 rounded-lg"></div>
+              <div className="aspect-[4/3]">
+                <img 
+                  src="/images/destinations/varanasi.jpg" 
+                  alt="varanasi"
+                  className="w-full h-full object-cover rounded-lg"
+                  loading="lazy"
+                />
+              </div>
+              <div className="absolute bottom-3 left-3 z-20">
+                <h3 className="text-white font-semibold text-sm mb-0.5">Varanasi</h3>
+                <p className="text-white/90 text-xs">Spiritual Capital</p>
+              </div>
+            </div>
+
+            {/* Kerala */}
+            <div className="relative group cursor-pointer">
+              <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-all duration-300 z-10 rounded-lg"></div>
+              <div className="aspect-[4/3]">
+                <img 
+                  src="/images/destinations/kerala.jpg" 
+                  alt="kerala"
+                  className="w-full h-full object-cover rounded-lg"
+                  loading="lazy"
+                />
+              </div>
+              <div className="absolute bottom-3 left-3 z-20">
+                <h3 className="text-white font-semibold text-sm mb-0.5">Kerala</h3>
+                <p className="text-white/90 text-xs">God's Own Country</p>
+              </div>
             </div>
           </div>
 
-          {/* Right Column */}
-          <div className="sm:col-span-2 lg:col-span-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4 sm:gap-6">
-            {/* Top Right Card -Risikesh*/}
-            <div className="relative group overflow-hidden rounded-2xl">
-              <div className="aspect-[4/3]">
+          {/* Right Column - Rishikesh */}
+          <div className="col-span-4">
+            <div className="relative group cursor-pointer h-full">
+              <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-all duration-300 z-10 rounded-lg"></div>
+              <div className="h-full">
                 <img 
                   src="/images/destinations/rishikesh.jpg" 
                   alt="Rishikesh"
+                  className="w-full h-full object-cover rounded-lg"
                   loading="lazy"
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                 />
               </div>
-              <div className="absolute top-3 sm:top-4 left-3 sm:left-4">
-                <span className="bg-red-500 text-white px-2.5 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium">25% OFF</span>
+              <div className="absolute bottom-4 left-4 z-20">
+                <h3 className="text-white font-semibold text-lg mb-1">Rishikesh</h3>
+                <p className="text-white/90 text-sm">Yoga Capital of World</p>
               </div>
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4 sm:p-6">
-                <div className="flex items-center gap-2 mb-1.5 sm:mb-2">
-                  <span className="bg-white/20 backdrop-blur-sm text-white px-2.5 sm:px-3 py-1 rounded-full text-xs sm:text-sm">Rishikesh</span>
-                </div>
-                <h3 className="text-white text-base sm:text-lg font-bold">Yoga Capital</h3>
-              </div>
-            </div>
-
-            {/* Bottom Right Card - Kedarnath*/}
-            <div className="relative group overflow-hidden rounded-2xl">
-              <div className="aspect-[4/3]">
-                <img 
-                  src="/images/destinations/kedarnath.jpg" 
-                  alt="Kedarnath Temple"
-                  loading="lazy"
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-              </div>
-              <div className="absolute top-3 sm:top-4 left-3 sm:left-4">
-                <span className="bg-red-500 text-white px-2.5 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium">35% OFF</span>
-              </div>
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4 sm:p-6">
-                <div className="flex items-center gap-2 mb-1.5 sm:mb-2">
-                  <span className="bg-white/20 backdrop-blur-sm text-white px-2.5 sm:px-3 py-1 rounded-full text-xs sm:text-sm">Kedarnath</span>
-                </div>
-                <h3 className="text-white text-base sm:text-lg font-bold">Abode of Shiva</h3>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Bottom Row */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-          {/* Valley of flowers */}
-          <div className="relative group overflow-hidden rounded-2xl">
-            <div className="aspect-[4/3]">
-              <img 
-                src="/images/destinations/chamoli.jpg" 
-                alt="Chamoli Valley of Flowers"
-                loading="lazy"
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-              />
-            </div>
-            <div className="absolute top-3 sm:top-4 left-3 sm:left-4">
-              <span className="bg-red-500 text-white px-2.5 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium">25% OFF</span>
-            </div>
-            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4 sm:p-6">
-              <div className="flex items-center gap-2 mb-1.5 sm:mb-2">
-                <span className="bg-white/20 backdrop-blur-sm text-white px-2.5 sm:px-3 py-1 rounded-full text-xs sm:text-sm">Chamoli</span>
-              </div>
-              <h3 className="text-white text-base sm:text-lg font-bold">Valley of Flowers</h3>
-            </div>
-          </div>
-
-          {/* Mussoorie */}
-          <div className="relative group overflow-hidden rounded-2xl">
-            <div className="aspect-[4/3]">
-              <img 
-                src="/images/destinations/mussoorie.jpg" 
-                alt="Mussoorie"
-                loading="lazy"
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-              />
-            </div>
-            <div className="absolute top-3 sm:top-4 left-3 sm:left-4">
-              <span className="bg-red-500 text-white px-2.5 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium">35% OFF</span>
-            </div>
-            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4 sm:p-6">
-              <div className="flex items-center gap-2 mb-1.5 sm:mb-2">
-                <span className="bg-white/20 backdrop-blur-sm text-white px-2.5 sm:px-3 py-1 rounded-full text-xs sm:text-sm">Mussoorie</span>
-              </div>
-              <h3 className="text-white text-base sm:text-lg font-bold">Queen of Hills</h3>
-            </div>
-          </div>
-
-          {/* Nainital */}
-          <div className="relative group overflow-hidden rounded-2xl">
-            <div className="aspect-[4/3]">
-              <img 
-                src="/images/destinations/nainital.jpg" 
-                alt="Nainital"
-                loading="lazy"
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-              />
-            </div>
-            <div className="absolute top-3 sm:top-4 left-3 sm:left-4">
-              <span className="bg-red-500 text-white px-2.5 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium">20% OFF</span>
-            </div>
-            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4 sm:p-6">
-              <div className="flex items-center gap-2 mb-1.5 sm:mb-2">
-                <span className="bg-white/20 backdrop-blur-sm text-white px-2.5 sm:px-3 py-1 rounded-full text-xs sm:text-sm">Nainital</span>
-              </div>
-              <h3 className="text-white text-base sm:text-lg font-bold">Lake Paradise</h3>
             </div>
           </div>
         </div>

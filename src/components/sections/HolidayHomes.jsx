@@ -135,13 +135,12 @@ const HolidayHomes = () => {
       <style>{swiperStyles}</style>
       <div className="container mx-auto px-4">
         {/* Section Header */}
-        <div className="text-center mb-10">
-          <div className="flex items-center justify-center gap-2 mb-3">
+        <div className="flex flex-col items-start mb-12">
+          <div className="flex items-center gap-2 mb-2">
             <div className="h-[1px] w-8 bg-[#84cc16]"></div>
-            <h3 className="text-[#84cc16] font-medium uppercase tracking-wider text-sm">Accommodations</h3>
-            <div className="h-[1px] w-8 bg-[#84cc16]"></div>
+            <span className="text-[#84cc16] font-medium uppercase tracking-wider text-sm">Holiday Homes</span>
           </div>
-          <h2 className="text-2xl md:text-3xl font-bold text-gray-900">Featured Holiday Homes</h2>
+          <h2 className="text-xl md:text-2xl font-bold text-gray-900">Featured Holiday Homes</h2>
         </div>
 
         {/* Swiper Carousel */}

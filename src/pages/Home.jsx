@@ -5,10 +5,12 @@ import PopularDestinations from '../components/sections/PopularDestinations';
 import HolidayHomes from '../components/sections/HolidayHomes';
 import FeaturedHotels from '../components/sections/FeaturedHotels';
 import BookingSteps from '../components/sections/BookingSteps';
-import AboutSection from '../components/sections/AboutSection';
 import ChooseSection from '../components/sections/ChooseSection';
 import AwesomePackages from '../components/sections/AwesomePackages';
 import Testimonials from '../components/sections/Testimonials';
+import PropertyTypes from '../components/sections/PropertyTypes';
+import ExploreIndia from '../components/sections/ExploreIndia';
+import UniqueProperties from '../components/sections/UniqueProperties';
 
 const Home = () => {
   return (
@@ -19,13 +21,15 @@ const Home = () => {
       </Helmet>
       <HeroSection />
       <OurServices />
+      <PropertyTypes />
       <PopularDestinations />   
-      <HolidayHomes />
+      <ExploreIndia />
+     <HolidayHomes />
       <FeaturedHotels />
-      <BookingSteps />
-      <AboutSection />
-      <ChooseSection />
+      <UniqueProperties />
       <AwesomePackages />
+      <BookingSteps />
+      <ChooseSection />      
       <Testimonials />
     </>
   );

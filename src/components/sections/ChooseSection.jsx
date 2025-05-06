@@ -7,32 +7,32 @@ const ChooseSection = () => {
     {
       icon: <Home className="w-6 h-6" />,
       title: "Premium Stays",
-      value: "100+"
+      value: "5000+"
     },
     {
       icon: <Mountain className="w-6 h-6" />,
       title: "Scenic Locations",
-      value: "50+"
+      value: "500+"
     },
     {
       icon: <Users className="w-6 h-6" />,
       title: "Happy Guests",
-      value: "2000+"
+      value: "20,000+"
     },
     {
       icon: <Star className="w-6 h-6" />,
       title: "5-Star Reviews",
-      value: "500+"
+      value: "18000+"
     },
     {
       icon: <MapPin className="w-6 h-6" />,
       title: "Tourist Spots",
-      value: "100+"
+      value: "1000+"
     },
     {
       icon: <Coffee className="w-6 h-6" />,
       title: "Local Experiences",
-      value: "30+"
+      value: "300+"
     }
   ];
 
@@ -47,10 +47,10 @@ const ChooseSection = () => {
           {/* Content Side */}
           <div className="text-white text-center lg:text-left">
             <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 leading-tight">
-              Want to experience the magic of Uttarakhand?
+            Find Your Happy Place
             </h2>
             <p className="text-white/90 text-base sm:text-lg mb-6 sm:mb-8 leading-relaxed max-w-xl mx-auto lg:mx-0">
-              From serene mountain retreats to adventurous getaways, find your perfect stay in the heart of the Himalayas. Book with confidence and create memories that last a lifetime.
+            Escape to handpicked homestays where comfort meets local charm. From mountain cottages to heritage homes, discover stays that feel like yours. Your perfect retreat awaits.
             </p>
             <Link 
               to="/holiday-homes"
@@ -103,7 +103,7 @@ const ChooseSection = () => {
         </svg>
       </div>
     </section>
-  );
+  )
 };
 
 export default ChooseSection; 

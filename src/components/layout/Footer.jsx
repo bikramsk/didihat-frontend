@@ -18,9 +18,9 @@ const Footer = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
           {/* Company Info with Newsletter */}
           <div className="sm:col-span-2 lg:col-span-1">
-            <h3 className="text-xl md:text-2xl font-bold mb-4 md:mb-6">DIDIHAT.com</h3>
-            <p className="text-gray-400 mb-6 leading-relaxed text-sm md:text-base">
-              Your gateway to Uttarakhand's divine beauty. Experience the magic of Devbhoomi with our curated stays, adventures, and spiritual journeys.
+            <h3 className="text-xl md:text-2xl font-bold mb-4 md:mb-2">DIDIHAT.com</h3>
+            <p className="text-gray-400 mb-8 leading-relaxed text-sm md:text-base">
+              Travel the way you want
             </p>
             <div className="mb-6">
               <h4 className="text-base md:text-lg font-semibold mb-3">Newsletter</h4>
@@ -49,33 +49,33 @@ const Footer = () => {
             <h4 className="text-base md:text-lg font-semibold mb-4">Popular Destinations</h4>
             <ul className="space-y-2.5">
               <li>
-                <Link to="/destination/kedarnath" className="text-gray-400 hover:text-[#84cc16] transition-colors flex items-center text-sm">
+                <Link to="/" className="text-gray-400 hover:text-[#84cc16] transition-colors flex items-center text-sm">
                   <span className="w-1.5 h-1.5 bg-[#84cc16] rounded-full mr-2"></span>
-                  Kedarnath Temple
+                  Agra
                 </Link>
               </li>
               <li>
-                <Link to="/destination/badrinath" className="text-gray-400 hover:text-[#84cc16] transition-colors flex items-center text-sm">
+                <Link to="/" className="text-gray-400 hover:text-[#84cc16] transition-colors flex items-center text-sm">
                   <span className="w-1.5 h-1.5 bg-[#84cc16] rounded-full mr-2"></span>
-                  Badrinath Temple
+                  Delhi
                 </Link>
               </li>
               <li>
-                <Link to="/destination/valley-of-flowers" className="text-gray-400 hover:text-[#84cc16] transition-colors flex items-center text-sm">
+                <Link to="/" className="text-gray-400 hover:text-[#84cc16] transition-colors flex items-center text-sm">
                   <span className="w-1.5 h-1.5 bg-[#84cc16] rounded-full mr-2"></span>
-                  Valley of Flowers
+                  Varansai
                 </Link>
               </li>
               <li>
-                <Link to="/destination/rishikesh" className="text-gray-400 hover:text-[#84cc16] transition-colors flex items-center text-sm">
+                <Link to="/" className="text-gray-400 hover:text-[#84cc16] transition-colors flex items-center text-sm">
                   <span className="w-1.5 h-1.5 bg-[#84cc16] rounded-full mr-2"></span>
                   Rishikesh
                 </Link>
               </li>
               <li>
-                <Link to="/destination/nainital" className="text-gray-400 hover:text-[#84cc16] transition-colors flex items-center text-sm">
+                <Link to="/" className="text-gray-400 hover:text-[#84cc16] transition-colors flex items-center text-sm">
                   <span className="w-1.5 h-1.5 bg-[#84cc16] rounded-full mr-2"></span>
-                  Nainital Lake
+                  Kerala
                 </Link>
               </li>
             </ul>
@@ -86,21 +86,27 @@ const Footer = () => {
             <h4 className="text-base md:text-lg font-semibold mb-4">Our Services</h4>
             <ul className="space-y-2.5">
               <li>
-                <Link to="/hotels" className="text-gray-400 hover:text-[#84cc16] transition-colors flex items-center text-sm">
+                <Link to="/" className="text-gray-400 hover:text-[#84cc16] transition-colors flex items-center text-sm">
                   <span className="w-1.5 h-1.5 bg-[#84cc16] rounded-full mr-2"></span>
-                  Hotel Bookings
+                 List your Hotel
                 </Link>
               </li>
               <li>
-                <Link to="/holiday-homes" className="text-gray-400 hover:text-[#84cc16] transition-colors flex items-center text-sm">
+                <Link to="/" className="text-gray-400 hover:text-[#84cc16] transition-colors flex items-center text-sm">
                   <span className="w-1.5 h-1.5 bg-[#84cc16] rounded-full mr-2"></span>
-                  Holiday Homes
+                  List your Holiday Home
                 </Link>
               </li>
               <li>
-                <Link to="/packages" className="text-gray-400 hover:text-[#84cc16] transition-colors flex items-center text-sm">
+                <Link to="/" className="text-gray-400 hover:text-[#84cc16] transition-colors flex items-center text-sm">
                   <span className="w-1.5 h-1.5 bg-[#84cc16] rounded-full mr-2"></span>
-                  Tour Packages
+                  List your Tour Package
+                </Link>
+              </li>
+              <li>
+                <Link to="/" className="text-gray-400 hover:text-[#84cc16] transition-colors flex items-center text-sm">
+                  <span className="w-1.5 h-1.5 bg-[#84cc16] rounded-full mr-2"></span>
+                  List your Vehicle
                 </Link>
               </li>
               <li>

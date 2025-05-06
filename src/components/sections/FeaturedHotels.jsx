@@ -41,8 +41,8 @@ const FeaturedHotels = () => {
   const hotels = [
     {
       id: 1,
-      name: "The Naini Retreat",
-      location: "Nainital, Uttarakhand",
+      name: "Pathik Resort",
+      location: "Almora, Uttarakhand",
       rating: 8.5,
       ratingText: "Very good",
       reviews: "342 reviews",
@@ -50,12 +50,12 @@ const FeaturedHotels = () => {
       oldPrice: "₹ 8,999",
       image: "/images/hotels/test.jpg",
       amenities: ["Free Wifi", "Restaurant", "Parking"],
-      slug: "the-naini-retreat"
+      slug: "pathik-resort"
     },
     {
       id: 2,
-      name: "Taj Corbett Resort & Spa",
-      location: "Jim Corbett, Uttarakhand",
+      name: "Corbett Suman Grand",
+      location: "RamNagar, Uttarakhand",
       rating: 9.2,
       ratingText: "Exceptional",
       reviews: "567 reviews",
@@ -63,12 +63,12 @@ const FeaturedHotels = () => {
       oldPrice: "₹ 15,999",
       image: "/images/hotels/test.jpg",
       amenities: ["Spa", "Pool", "Restaurant"],
-      slug: "taj-corbett-resort"
+      slug: "corbett-suman-grand"
     },
     {
       id: 3,
-      name: "Ganga Kinare Resort",
-      location: "Rishikesh, Uttarakhand",
+      name: "Hotel Burans Breeze",
+      location: "Mussoorie, Uttarakhand",
       rating: 8.8,
       ratingText: "Fabulous",
       reviews: "423 reviews",
@@ -76,12 +76,12 @@ const FeaturedHotels = () => {
       oldPrice: "₹ 7,499",
       image: "/images/hotels/test.jpg",
       amenities: ["River View", "Yoga Center", "Spa"],
-      slug: "ganga-kinare-resort"
+      slug: "hotel-burans-breeze"
     },
     {
       id: 4,
-      name: "The Savoy Mussoorie",
-      location: "Mussoorie, Uttarakhand",
+      name: "Hotel Doon Castle",
+      location: "Dehradun, Uttarakhand",
       rating: 9.0,
       ratingText: "Superb",
       reviews: "289 reviews",
@@ -89,12 +89,12 @@ const FeaturedHotels = () => {
       oldPrice: "₹ 11,999",
       image: "/images/hotels/test.jpg",
       amenities: ["Mountain View", "Bar", "Fitness Center"],
-      slug: "savoy-mussoorie"
+      slug: "hotel-doon-castle"
     },
     {
       id: 5,
-      name: "Madhuban Resort",
-      location: "Dehradun, Uttarakhand",
+      name: "Hotel Nand Residency",
+      location: "Mussoorie, Uttarakhand",
       rating: 8.7,
       ratingText: "Excellent",
       reviews: "178 reviews",
@@ -102,12 +102,12 @@ const FeaturedHotels = () => {
       oldPrice: "₹ 6,499",
       image: "/images/hotels/test.jpg",
       amenities: ["Pool", "Restaurant", "Garden"],
-      slug: "madhuban-resort"
+      slug: "hotel-nand-residency"
     },
     {
         id: 6,
-        name: "Madhuban Resort",
-        location: "Dehradun, Uttarakhand",
+        name: "Hotel Pandey Lodge",
+        location: "Munsyari, Uttarakhand",
         rating: 8.7,
         ratingText: "Excellent",
         reviews: "178 reviews",
@@ -115,7 +115,7 @@ const FeaturedHotels = () => {
         oldPrice: "₹ 6,499",
         image: "/images/hotels/test.jpg",
         amenities: ["Pool", "Restaurant", "Garden"],
-        slug: "madhuban-resort"
+        slug: "hotel-pandey-lodge"
       }
   ];
 
@@ -124,13 +124,12 @@ const FeaturedHotels = () => {
       <style>{swiperStyles}</style>
       <div className="container mx-auto px-4">
         {/* Section Header */}
-        <div className="text-center mb-8">
-          <div className="flex items-center justify-center gap-2 mb-3">
+        <div className="flex flex-col items-start mb-12">
+          <div className="flex items-center gap-2 mb-2">
             <div className="h-[1px] w-8 bg-[#84cc16]"></div>
-            <h3 className="text-[#84cc16] font-medium uppercase tracking-wider text-xs">Top Rated</h3>
-            <div className="h-[1px] w-8 bg-[#84cc16]"></div>
+            <span className="text-[#84cc16] font-medium uppercase tracking-wider text-sm">Hotels</span>
           </div>
-          <h2 className="text-xl md:text-2xl font-bold text-gray-900">Featured Hotels in Uttarakhand</h2>
+          <h2 className="text-xl md:text-2xl font-bold text-gray-900">Featured Hotels</h2>
         </div>
 
         {/* Swiper Carousel */}

@@ -1,12 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import { ChevronDown, Menu, X, MapPin, Phone, Mail } from 'lucide-react';
+import { ChevronDown, Menu, X, MapPin, Phone, Mail, LogIn, UserPlus } from 'lucide-react';
 import { FaTwitter, FaFacebook, FaLinkedin, FaInstagram, FaYoutube } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+import Modal from '../common/Modal';
+import Login from '../auth/Login';
+import Signup from '../auth/Signup';
+
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [pagesDropdownOpen, setPagesDropdownOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [loginModalOpen, setLoginModalOpen] = useState(false);
+  const [signupModalOpen, setSignupModalOpen] = useState(false);
+  const location = useLocation();
+
+  // Check if current page is an auth page
+  const isAuthPage = ['/login', '/signup'].includes(location.pathname);
 
   // Handle scroll
   useEffect(() => {
@@ -17,6 +26,33 @@ const Header = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Close dropdowns when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (!event.target.closest('.auth-dropdown')) {
+        // No longer needed
+      }
+    };
+
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
+  }, []);
+
+  // Don't render header on auth pages
+  if (isAuthPage) {
+    return null;
+  }
+
+  const handleLoginClick = () => {
+    setSignupModalOpen(false);
+    setLoginModalOpen(true);
+  };
+
+  const handleSignupClick = () => {
+    setLoginModalOpen(false);
+    setSignupModalOpen(true);
+  };
 
   return (
     <>
@@ -79,7 +115,7 @@ const Header = () => {
             <Link to="/" className={`text-3xl font-bold transition-colors duration-300 ${
               isScrolled ? 'text-gray-900' : 'text-[#84cc16]'
             }`}>
-              DIDIHAT
+              Didihat.com
             </Link>
 
             {/* Mobile menu button */}
@@ -93,24 +129,16 @@ const Header = () => {
             </button>
 
             {/* Desktop Navigation */}
-            <div className="hidden lg:flex items-center space-x-8">
-              <a href="#" className={`relative group py-2 ${
+            <div className="hidden lg:flex items-center space-x-3 xl:space-x-8">
+              <a href="#" className={`relative group py-2 text-sm xl:text-base ${
                 isScrolled ? 'text-gray-900 hover:text-[#84cc16]' : 'text-white hover:text-[#84cc16]'
               }`}>
-                Home
+                Stays
                 {!isScrolled && (
                   <div className="absolute bottom-[-16px] left-0 w-full h-[2px] bg-[#84cc16] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 )}
               </a>
-              <a href="#" className={`relative group py-2 ${
-                isScrolled ? 'text-gray-900 hover:text-[#84cc16]' : 'text-white hover:text-[#84cc16]'
-              }`}>
-                Holiday Destinations
-                {!isScrolled && (
-                  <div className="absolute bottom-[-16px] left-0 w-full h-[2px] bg-[#84cc16] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                )}
-              </a>
-              <a href="#" className={`relative group py-2 ${
+              <a href="#" className={`relative group py-2 text-sm xl:text-base ${
                 isScrolled ? 'text-gray-900 hover:text-[#84cc16]' : 'text-white hover:text-[#84cc16]'
               }`}>
                 Hotels
@@ -118,7 +146,16 @@ const Header = () => {
                   <div className="absolute bottom-[-16px] left-0 w-full h-[2px] bg-[#84cc16] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 )}
               </a>
-              <a href="#" className={`relative group py-2 ${
+              <a href="/attractions" className={`relative group py-2 text-sm xl:text-base ${
+                isScrolled ? 'text-gray-900 hover:text-[#84cc16]' : 'text-white hover:text-[#84cc16]'
+              }`}>
+               Attractions
+                {!isScrolled && (
+                  <div className="absolute bottom-[-16px] left-0 w-full h-[2px] bg-[#84cc16] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                )}
+              </a>
+             
+              <a href="#" className={`relative group py-2 text-sm xl:text-base ${
                 isScrolled ? 'text-gray-900 hover:text-[#84cc16]' : 'text-white hover:text-[#84cc16]'
               }`}>
                 Holiday Home
@@ -126,7 +163,7 @@ const Header = () => {
                   <div className="absolute bottom-[-16px] left-0 w-full h-[2px] bg-[#84cc16] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 )}
               </a>
-              <a href="#" className={`relative group py-2 ${
+              <a href="#" className={`relative group py-2 text-sm xl:text-base ${
                 isScrolled ? 'text-gray-900 hover:text-[#84cc16]' : 'text-white hover:text-[#84cc16]'
               }`}>
                 Tour Packages
@@ -134,48 +171,41 @@ const Header = () => {
                   <div className="absolute bottom-[-16px] left-0 w-full h-[2px] bg-[#84cc16] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 )}
               </a>
-              <div className="relative group">
-                <button 
-                  className={`flex items-center py-2 relative group ${
-                    isScrolled ? 'text-gray-900 hover:text-[#84cc16]' : 'text-white hover:text-[#84cc16]'
-                  }`}
-                  onClick={() => setPagesDropdownOpen(!pagesDropdownOpen)}
-                  onBlur={() => setTimeout(() => setPagesDropdownOpen(false), 200)}
-                >
-                  Listing <ChevronDown size={16} className={`ml-1 transition-transform duration-200 ${pagesDropdownOpen ? 'rotate-180' : ''}`} />
-                  {!isScrolled && (
-                    <div className="absolute bottom-[-16px] left-0 w-full h-[2px] bg-[#84cc16] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                  )}
-                </button>
-                {/* Dropdown Menu */}
-                {pagesDropdownOpen && (
-                  <div className="absolute top-full left-0 mt-2 w-48 bg-white text-gray-800 rounded-lg shadow-lg py-2 z-50">
-                    <a href="#" className="block px-4 py-2 hover:bg-gray-100 hover:text-[#84cc16]">
-                      List you Hotel
-                    </a>
-                    <a href="#" className="block px-4 py-2 hover:bg-gray-100 hover:text-[#84cc16]">
-                      List you Holiday Home
-                    </a>
-                    <a href="#" className="block px-4 py-2 hover:bg-gray-100 hover:text-[#84cc16]">
-                      List Tour Packages
-                    </a>
-                    <a href="#" className="block px-4 py-2 hover:bg-gray-100 hover:text-[#84cc16]">
-                      List your Vehicle
-                    </a>
-                  </div>
-                )}
-              </div>
-              <a href="#" className={`relative group py-2 ${
+              
+              <a href="#" className={`relative group py-2 text-sm xl:text-base ${
                 isScrolled ? 'text-gray-900 hover:text-[#84cc16]' : 'text-white hover:text-[#84cc16]'
               }`}>
-                Vehicle on Rent
+                Car Rentals
                 {!isScrolled && (
                   <div className="absolute bottom-[-16px] left-0 w-full h-[2px] bg-[#84cc16] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 )}
               </a>
-              <a href="#" className="bg-[#84cc16] text-white px-6 py-2 rounded-full hover:bg-[#65a30d] transition-colors">
-                Register
-              </a>
+
+              {/* Auth Buttons for Desktop */}
+              <div className="hidden lg:flex items-center gap-3 ml-3 xl:ml-8">
+                <button
+                  onClick={handleLoginClick}
+                  className={`text-sm font-medium py-2 px-3 rounded transition-colors ${
+                    isScrolled 
+                      ? 'bg-[#84cc16] text-white hover:bg-[#65a30d]' 
+                      : 'bg-white text-[#65a30d] hover:bg-gray-100'
+                  }`}
+                >
+                  Sign in
+                </button>
+                <button
+                  onClick={handleSignupClick}
+                  className={`text-sm font-medium py-2 px-3 rounded transition-colors ${
+                    isScrolled 
+                      ? 'bg-[#84cc16] text-white hover:bg-[#65a30d]' 
+                      : 'bg-white text-[#65a30d] hover:bg-gray-100'
+                  }`}
+                >
+                  Register
+                </button>
+              </div>
+
+              
             </div>
 
             {/* Mobile Navigation */}
@@ -184,14 +214,15 @@ const Header = () => {
                 <div className="container mx-auto px-4 py-3">
                   <div className="flex flex-col space-y-3">
                     <a href="#" className="text-gray-900 hover:text-[#84cc16] transition-colors duration-300 py-2">
-                      Home
-                    </a>
-                    <a href="#" className="text-gray-900 hover:text-[#84cc16] transition-colors duration-300 py-2">
-                      Holiday Destinations
+                      Stays
                     </a>
                     <a href="#" className="text-gray-900 hover:text-[#84cc16] transition-colors duration-300 py-2">
                       Hotels
                     </a>
+                    <a href="#" className="text-gray-900 hover:text-[#84cc16] transition-colors duration-300 py-2">
+                     Attractions
+                    </a>
+                    
                     <a href="#" className="text-gray-900 hover:text-[#84cc16] transition-colors duration-300 py-2">
                       Holiday Home
                     </a>
@@ -199,39 +230,35 @@ const Header = () => {
                       Tour Packages
                     </a>
                     
-                    {/* Mobile Listing Dropdown */}
-                    <div className="relative">
-                      <button 
-                        onClick={() => setPagesDropdownOpen(!pagesDropdownOpen)}
-                        className="flex items-center justify-between w-full text-gray-900 hover:text-[#84cc16] transition-colors duration-300 py-2"
-                      >
-                        <span>Listing</span>
-                        <ChevronDown size={16} className={`transition-transform duration-200 ${pagesDropdownOpen ? 'rotate-180' : ''}`} />
-                      </button>
-                      {pagesDropdownOpen && (
-                        <div className="pl-4 mt-2 space-y-2">
-                          <a href="#" className="block text-gray-900 hover:text-[#84cc16] transition-colors duration-300 py-2">
-                            List you Hotel
-                          </a>
-                          <a href="#" className="block text-gray-900 hover:text-[#84cc16] transition-colors duration-300 py-2">
-                            List you Holiday Home
-                          </a>
-                          <a href="#" className="block text-gray-900 hover:text-[#84cc16] transition-colors duration-300 py-2">
-                            List Tour Packages
-                          </a>
-                          <a href="#" className="block text-gray-900 hover:text-[#84cc16] transition-colors duration-300 py-2">
-                            List your Vehicle
-                          </a>
-                        </div>
-                      )}
-                    </div>
+                   
 
                     <a href="#" className="text-gray-900 hover:text-[#84cc16] transition-colors duration-300 py-2">
-                      Vehicle on Rent
+                     Car Rentals
                     </a>
-                    <a href="#" className="bg-[#84cc16] text-white px-6 py-2 rounded-full hover:bg-[#65a30d] transition-colors duration-300 text-center mt-2">
-                      Register
-                    </a>
+
+                    {/* Mobile Auth Buttons */}
+                    <div className="pt-4 mt-2 border-t border-gray-100 flex flex-col gap-3">
+                      <button
+                        onClick={() => {
+                          setIsOpen(false);
+                          handleLoginClick();
+                        }}
+                        className="flex items-center justify-center gap-2 w-full bg-[#84cc16] text-white px-4 py-2.5 rounded-lg hover:bg-[#65a30d] transition-colors"
+                      >
+                        
+                        <span>Login</span>
+                      </button>
+                      <button
+                        onClick={() => {
+                          setIsOpen(false);
+                          handleSignupClick();
+                        }}
+                        className="flex items-center justify-center gap-2 w-full border-2 border-[#84cc16] text-[#84cc16] px-4 py-2.5 rounded-lg hover:bg-[#84cc16] hover:text-white transition-colors"
+                      >
+                       
+                        <span>Register</span>
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -239,6 +266,21 @@ const Header = () => {
           </div>
         </div>
       </header>
+
+{/* Auth Modals */}
+<Modal isOpen={loginModalOpen} onClose={() => setLoginModalOpen(false)}>
+        <Login 
+          onClose={() => setLoginModalOpen(false)} 
+          onSwitchToSignup={handleSignupClick}
+        />
+      </Modal>
+
+      <Modal isOpen={signupModalOpen} onClose={() => setSignupModalOpen(false)}>
+        <Signup 
+          onClose={() => setSignupModalOpen(false)}
+          onSwitchToLogin={handleLoginClick}
+        />
+      </Modal>
     </>
   );
 };

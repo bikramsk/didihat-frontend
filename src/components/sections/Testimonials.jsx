@@ -51,13 +51,12 @@ const Testimonials = () => {
     <section className="py-16 bg-gray-50">
       <div className="container mx-auto px-4">
         {/* Section Header */}
-        <div className="text-center mb-12">
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <div className="h-[2px] w-12 bg-[#84cc16]"></div>
-            <h3 className="text-[#84cc16] font-medium tracking-wider">TESTIMONIALS</h3>
-            <div className="h-[2px] w-12 bg-[#84cc16]"></div>
+        <div className="flex flex-col items-start mb-12">
+          <div className="flex items-center gap-2 mb-2">
+            <div className="h-[1px] w-8 bg-[#84cc16]"></div>
+            <span className="text-[#84cc16] font-medium uppercase tracking-wider text-sm">Testimonials</span>
           </div>
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900">What Our Travelers Say</h2>
+          <h2 className="text-xl md:text-2xl font-bold text-gray-900">What Our Customers Say</h2>
         </div>
 
         {/* Testimonials Slider */}
