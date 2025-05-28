@@ -126,8 +126,8 @@ const FeaturedHotels = () => {
         {/* Section Header */}
         <div className="flex flex-col items-start mb-12">
           <div className="flex items-center gap-2 mb-2">
-            <div className="h-[1px] w-8 bg-[#84cc16]"></div>
-            <span className="text-[#84cc16] font-medium uppercase tracking-wider text-sm">Hotels</span>
+            <div className="h-[1px] w-8 bg-[#003B95]"></div>
+            <span className="text-[#003B95] font-medium uppercase tracking-wider text-sm">Hotels</span>
           </div>
           <h2 className="text-xl md:text-2xl font-bold text-gray-900">Featured Hotels</h2>
         </div>
@@ -210,7 +210,7 @@ const FeaturedHotels = () => {
                         </span>
                       </div>
                       <div className="flex items-center gap-1">
-                        <Star className="w-3 h-3 text-[#84cc16] fill-[#84cc16]" />
+                        <Star className="w-3 h-3 text-[#003B95] fill-[#003B95]" />
                         <span className="text-gray-500 text-xs">
                           {hotel.reviews}
                         </span>

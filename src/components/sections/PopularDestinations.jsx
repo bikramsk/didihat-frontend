@@ -7,8 +7,8 @@ const PopularDestinations = () => {
         {/* Section Header */}
         <div className="flex flex-col items-start mb-8">
           <div className="flex items-center gap-2 mb-2">
-            <div className="h-[1px] w-8 bg-[#84cc16]"></div>
-            <span className="text-[#84cc16] font-medium uppercase tracking-wider text-sm">Popular Destinations</span>
+            <div className="h-[1px] w-8 bg-[#003B95]"></div>
+            <span className="text-[#003B95] font-medium uppercase tracking-wider text-sm">Popular Destinations</span>
           </div>
           <h2 className="text-xl md:text-2xl font-bold text-gray-900">Top Picks for Indian Travelers</h2>
         </div>

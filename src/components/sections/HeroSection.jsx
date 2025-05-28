@@ -93,7 +93,7 @@ const HeroSection = () => {
                 <input
                   type="text"
                   placeholder="Where are you going?"
-                  className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#84cc16]"
+                  className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#003B95]"
                   value={searchValue}
                   onChange={(e) => setSearchValue(e.target.value)}
                   onFocus={() => setIsLocationOpen(true)}
@@ -112,9 +112,9 @@ const HeroSection = () => {
                             onClick={() => handleLocationClick(destination.name)}
                           >
                             <div className="flex items-start">
-                              <MapPin size={14} className="text-gray-400 group-hover:text-[#84cc16] mt-0.5 flex-shrink-0" />
+                              <MapPin size={14} className="text-gray-400 group-hover:text-[#003B95] mt-0.5 flex-shrink-0" />
                               <div className="ml-1.5">
-                                <p className="text-sm text-gray-900 font-medium group-hover:text-[#84cc16] leading-tight">{destination.name}</p>
+                                <p className="text-sm text-gray-900 font-medium group-hover:text-[#002D70] leading-tight">{destination.name}</p>
                                 <p className="text-xs text-gray-500 leading-tight">{destination.description}</p>
                               </div>
                             </div>
@@ -134,7 +134,7 @@ const HeroSection = () => {
                 <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
                 <input
                   type="date"
-                  className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#84cc16]"
+                  className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#003B95]"
                 />
               </div>
             </div>
@@ -146,7 +146,7 @@ const HeroSection = () => {
                 <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
                 <input
                   type="date"
-                  className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#84cc16]"
+                  className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#003B95]"
                 />
               </div>
             </div>
@@ -158,7 +158,7 @@ const HeroSection = () => {
                 <Users className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
                 <button
                   type="button"
-                  className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#84cc16] text-left bg-white"
+                  className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#003B95] text-left bg-white"
                   onClick={() => setIsGuestsOpen(!isGuestsOpen)}
                 >
                   {getGuestsText()}
@@ -237,7 +237,7 @@ const HeroSection = () => {
 
                     {/* Done Button */}
                     <button
-                      className="w-full mt-2 bg-[#84cc16] text-white py-1.5 rounded-lg hover:bg-[#65a30d] transition-colors text-sm"
+                      className="w-full mt-2 bg-[#003B95] text-white py-1.5 rounded-lg hover:bg-[#002D70] transition-colors text-sm"
                       onClick={() => setIsGuestsOpen(false)}
                     >
                       Done
@@ -250,7 +250,7 @@ const HeroSection = () => {
 
           {/* Search Button */}
           <div className="mt-4 md:mt-6 text-center">
-            <button className="bg-[#84cc16] text-white px-6 md:px-8 py-2.5 md:py-3 rounded-full hover:bg-[#65a30d] transition-colors flex items-center justify-center mx-auto">
+            <button className="bg-[#003B95] text-white px-6 md:px-8 py-2.5 md:py-3 rounded-full hover:bg-[#002D70] transition-colors flex items-center justify-center mx-auto">
               <Search size={18} className="mr-2" />
               Search
             </button>

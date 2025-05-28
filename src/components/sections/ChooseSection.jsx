@@ -37,7 +37,7 @@ const ChooseSection = () => {
   ];
 
   return (
-    <section className="relative overflow-hidden bg-[#84cc16] py-12 sm:py-16 md:py-20">
+    <section className="relative overflow-hidden bg-[#003B95] py-12 sm:py-16 md:py-20">
       {/* Background Decorative Elements */}
       <div className="absolute top-0 left-0 w-16 sm:w-20 md:w-24 h-16 sm:h-20 md:h-24 bg-white/5 rounded-full -translate-x-1/2 -translate-y-1/2"></div>
       <div className="absolute bottom-0 right-0 w-24 sm:w-28 md:w-32 h-24 sm:h-28 md:h-32 bg-white/5 rounded-full translate-x-1/2 translate-y-1/2"></div>
@@ -54,7 +54,7 @@ const ChooseSection = () => {
             </p>
             <Link 
               to="/holiday-homes"
-              className="inline-flex items-center gap-2 bg-white text-[#84cc16] px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-semibold hover:bg-opacity-90 transition-all duration-300 group shadow-lg hover:shadow-xl cursor-pointer text-sm sm:text-base"
+              className="inline-flex items-center gap-2 bg-white text-[#003B95] px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-semibold hover:bg-opacity-90 transition-all duration-300 group shadow-lg hover:shadow-xl cursor-pointer text-sm sm:text-base"
             >
               Explore Stays
               <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />
@@ -70,12 +70,12 @@ const ChooseSection = () => {
                   className="bg-white rounded-xl p-3 sm:p-4 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
                 >
                   <div className="flex flex-col items-center text-center">
-                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#84cc16]/10 rounded-full flex items-center justify-center mb-2 sm:mb-3">
-                      <div className="text-[#84cc16]">
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#003B95]/10 rounded-full flex items-center justify-center mb-2 sm:mb-3">
+                      <div className="text-[#003B95]">
                         {feature.icon}
                       </div>
                     </div>
-                    <div className="text-xl sm:text-2xl font-bold text-[#84cc16] mb-1">
+                    <div className="text-xl sm:text-2xl font-bold text-[#003B95] mb-1">
                       {feature.value}
                     </div>
                     <div className="text-xs sm:text-sm text-gray-600 font-medium">
@@ -87,8 +87,8 @@ const ChooseSection = () => {
             </div>
 
             {/* Decorative Elements */}
-            <div className="absolute top-1/2 right-0 w-16 sm:w-20 h-16 sm:h-20 bg-[#65a30d] rounded-full translate-x-1/2 -translate-y-1/2 -z-10"></div>
-            <div className="absolute bottom-0 left-1/4 w-12 sm:w-16 h-12 sm:h-16 bg-[#65a30d] rounded-full -z-10"></div>
+            <div className="absolute top-1/2 right-0 w-16 sm:w-20 h-16 sm:h-20 bg-[#003B95] rounded-full translate-x-1/2 -translate-y-1/2 -z-10"></div>
+            <div className="absolute bottom-0 left-1/4 w-12 sm:w-16 h-12 sm:h-16 bg-[#003B95] rounded-full -z-10"></div>
           </div>
         </div>
       </div>

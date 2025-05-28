@@ -78,8 +78,8 @@ const PropertyTypes = () => {
       <div className="container mx-auto px-4">
         <div className="flex flex-col items-start mb-8">
           <div className="flex items-center gap-2 mb-2">
-            <div className="h-[1px] w-8 bg-[#84cc16]"></div>
-            <span className="text-[#84cc16] font-medium uppercase tracking-wider text-sm">Properties</span>
+            <div className="h-[1px] w-8 bg-[#003B95]"></div>
+            <span className="text-[#003B95] font-medium uppercase tracking-wider text-sm">Properties</span>
           </div>
           <h2 className="text-2xl md:text-3xl font-bold text-gray-900">Browse by property type</h2>
         </div>
@@ -128,7 +128,7 @@ const PropertyTypes = () => {
       <style jsx>{`
         .property-types-swiper :global(.swiper-button-next),
         .property-types-swiper :global(.swiper-button-prev) {
-          color: #84cc16;
+          color: #003B95;
           background: white;
           border-radius: 50%;
           width: 40px;

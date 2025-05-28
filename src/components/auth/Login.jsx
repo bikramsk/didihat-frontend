@@ -31,7 +31,7 @@ const Login = ({ onClose, onSwitchToSignup }) => {
   };
 
   return (
-    <div className="flex w-full relative h-[550px] rounded-lg overflow-hidden">
+    <div className="flex w-full relative h-[550px] md:h-[550px] rounded-lg overflow-hidden">
       {/* Close Button */}
       <button 
         className="absolute right-4 top-4 text-gray-400 hover:text-gray-600 z-10"
@@ -51,11 +51,16 @@ const Login = ({ onClose, onSwitchToSignup }) => {
           <div className="absolute inset-0 bg-gradient-to-b from-blue-900/50 to-blue-900/30"></div>
         </div>
         <div className="relative z-10 flex flex-col items-center w-full pt-8">
-          <div className="backdrop-blur-sm bg-black/10 p-4 rounded-lg border border-white/20 mx-6">
-            <h1 className="text-4xl font-bold mb-2 bg-gradient-to-r from-white to-white/80 text-transparent bg-clip-text drop-shadow-lg text-center">
+          <div className="backdrop-blur-sm bg-white/50 p-4 rounded-lg border border-black/30 mx-6">
+            {/* <h1 className="text-4xl font-bold mb-2 bg-gradient-to-r from-white to-white/80 text-transparent bg-clip-text drop-shadow-lg text-center">
               DDHAT
-            </h1>
-            <p className="text-base font-light tracking-wide text-white/90 drop-shadow-md text-center">
+            </h1> */}
+            <img 
+              src="/didihat-logo.png" 
+              alt="Didihat.com Logo" 
+              className="h-12"
+            />
+            <p className="text-base font-light tracking-wide text-white text-center">
               Travel the way you want
             </p>
           </div>
@@ -82,7 +87,7 @@ const Login = ({ onClose, onSwitchToSignup }) => {
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Mail className="h-5 w-5 text-[#84cc16]" />
+                  <Mail className="h-5 w-5 text-[#003B95]" />
                 </div>
                 <input
                   id="email"
@@ -91,7 +96,7 @@ const Login = ({ onClose, onSwitchToSignup }) => {
                   required
                   value={formData.email}
                   onChange={handleChange}
-                  className="block w-full pl-10 pr-3 py-1.5 border border-gray-300 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#84cc16] focus:border-transparent"
+                  className="block w-full pl-10 pr-3 py-1.5 border border-gray-300 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#003B95] focus:border-transparent"
                   placeholder="Email"
                 />
               </div>
@@ -104,7 +109,7 @@ const Login = ({ onClose, onSwitchToSignup }) => {
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Lock className="h-5 w-5 text-[#84cc16]" />
+                  <Lock className="h-5 w-5 text-[#003B95]" />
                 </div>
                 <input
                   id="password"
@@ -113,7 +118,7 @@ const Login = ({ onClose, onSwitchToSignup }) => {
                   required
                   value={formData.password}
                   onChange={handleChange}
-                  className="block w-full pl-10 pr-12 py-1.5 border border-gray-300 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#84cc16] focus:border-transparent"
+                  className="block w-full pl-10 pr-12 py-1.5 border border-gray-300 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#003B95] focus:border-transparent"
                   placeholder="Password"
                 />
                 <button
@@ -132,7 +137,7 @@ const Login = ({ onClose, onSwitchToSignup }) => {
 
             {/* Forgot Password */}
             <div className="flex justify-end">
-              <button type="button" className="text-sm text-[#65a30d] hover:text-green-900">
+              <button type="button" className="text-sm text-[#003B95] hover:#002D70">
                 Forgot your password?
               </button>
             </div>
@@ -140,7 +145,7 @@ const Login = ({ onClose, onSwitchToSignup }) => {
             {/* Login Button */}
             <button
               type="submit"
-              className="w-full py-1.5 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-[#84cc16] hover:bg-[#65a30d] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#65a30d]"
+              className="w-full py-1.5 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-[#003B95] hover:bg-[#002D70] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#002D70]"
             >
               LOGIN
             </button>
@@ -159,7 +164,7 @@ const Login = ({ onClose, onSwitchToSignup }) => {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <button
                 type="button"
-                className="flex justify-center items-center gap-2 px-3 py-1.5 border border-gray-300 rounded-lg shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#84cc16] w-full"
+                className="flex justify-center items-center gap-2 px-3 py-1.5 border border-gray-300 rounded-lg shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#003B95] w-full"
               >
                 <svg className="h-5 w-5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
@@ -171,7 +176,7 @@ const Login = ({ onClose, onSwitchToSignup }) => {
               </button>
               <button
                 type="button"
-                className="flex justify-center items-center gap-2 px-3 py-1.5 border border-gray-300 rounded-lg shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#84cc16] w-full"
+                className="flex justify-center items-center gap-2 px-3 py-1.5 border border-gray-300 rounded-lg shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#003B95] w-full"
               >
                 <svg className="h-5 w-5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" fill="#1877F2"/>
@@ -186,7 +191,7 @@ const Login = ({ onClose, onSwitchToSignup }) => {
               <button 
                 type="button" 
                 onClick={handleSwitchToSignup}
-                className="font-medium text-[#84cc16] hover:text-[#65a30d]"
+                className="font-medium text-[#003B95] hover:text-[#002D70]"
               >
                 Register Now
               </button>

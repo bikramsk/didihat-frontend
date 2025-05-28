@@ -53,8 +53,8 @@ const Testimonials = () => {
         {/* Section Header */}
         <div className="flex flex-col items-start mb-12">
           <div className="flex items-center gap-2 mb-2">
-            <div className="h-[1px] w-8 bg-[#84cc16]"></div>
-            <span className="text-[#84cc16] font-medium uppercase tracking-wider text-sm">Testimonials</span>
+            <div className="h-[1px] w-8 bg-[#003B95]"></div>
+            <span className="text-[#003B95] font-medium uppercase tracking-wider text-sm">Testimonials</span>
           </div>
           <h2 className="text-xl md:text-2xl font-bold text-gray-900">What Our Customers Say</h2>
         </div>
@@ -73,7 +73,7 @@ const Testimonials = () => {
                       {/* Left Side - Profile */}
                       <div className="flex-shrink-0">
                         <div className="relative">
-                          <div className="w-16 h-16 rounded-full overflow-hidden ring-2 ring-[#84cc16]">
+                          <div className="w-16 h-16 rounded-full overflow-hidden ring-2 ring-[#003B95]">
                             <img
                               src={testimonial.image}
                               alt={testimonial.name}
@@ -81,7 +81,7 @@ const Testimonials = () => {
                               className="w-full h-full object-cover"
                             />
                           </div>
-                          <Quote className="w-6 h-6 text-[#84cc16] absolute -bottom-2 -right-2 bg-white rounded-full p-1" />
+                          <Quote className="w-6 h-6 text-[#003B95] absolute -bottom-2 -right-2 bg-white rounded-full p-1" />
                         </div>
                       </div>
 
@@ -92,7 +92,7 @@ const Testimonials = () => {
                             <h4 className="text-lg font-semibold text-gray-900">{testimonial.name}</h4>
                             <p className="text-sm text-gray-500">{testimonial.location}</p>
                           </div>
-                          <span className="px-3 py-1 bg-[#84cc16]/10 text-[#84cc16] text-xs font-medium rounded-full">
+                          <span className="px-3 py-1 bg-[#003B95]/10 text-[#003B95] text-xs font-medium rounded-full">
                             {testimonial.destination}
                           </span>
                         </div>
@@ -111,7 +111,7 @@ const Testimonials = () => {
           <div className="flex items-center justify-center gap-6 mt-8">
             <button
               onClick={prevSlide}
-              className="p-2 rounded-lg bg-white shadow-md hover:bg-[#84cc16] hover:text-white transition-all duration-300"
+              className="p-2 rounded-lg bg-white shadow-md hover:bg-[#003B95] hover:text-white transition-all duration-300"
               aria-label="Previous testimonial"
             >
               <ChevronLeft className="w-5 h-5" />
@@ -123,7 +123,7 @@ const Testimonials = () => {
                 onClick={() => setCurrentSlide(index)}
                 className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
                   index === currentSlide 
-                    ? 'bg-[#84cc16] scale-125' 
+                    ? 'bg-[#003B95] scale-125' 
                     : 'bg-gray-300 hover:bg-gray-400'
                 }`}
                 aria-label={`Go to slide ${index + 1}`}
@@ -132,7 +132,7 @@ const Testimonials = () => {
 
             <button
               onClick={nextSlide}
-              className="p-2 rounded-lg bg-white shadow-md hover:bg-[#84cc16] hover:text-white transition-all duration-300"
+              className="p-2 rounded-lg bg-white shadow-md hover:bg-[#003B95] hover:text-white transition-all duration-300"
               aria-label="Next testimonial"
             >
               <ChevronRight className="w-5 h-5" />

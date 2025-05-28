@@ -41,8 +41,8 @@ const AwesomePackages = () => {
         {/* Section Header */}
         <div className="flex flex-col items-start mb-8">
           <div className="flex items-center gap-2 mb-2">
-            <div className="h-[1px] w-8 bg-[#84cc16]"></div>
-            <span className="text-[#84cc16] font-medium uppercase tracking-wider text-sm">Tour Packages</span>
+            <div className="h-[1px] w-8 bg-[#003B95]"></div>
+            <span className="text-[#003B95] font-medium uppercase tracking-wider text-sm">Tour Packages</span>
           </div>
           <h2 className="text-xl md:text-2xl font-bold text-gray-900">Popular Tour Packages</h2>
         </div>
@@ -70,7 +70,7 @@ const AwesomePackages = () => {
                 <div className="mb-3">
                   <h3 className="font-semibold text-gray-900 mb-1">{pkg.location}</h3>
                   <div className="flex items-center gap-1 text-gray-600">
-                    <MapPin className="w-4 h-4 text-[#84cc16]" />
+                    <MapPin className="w-4 h-4 text-[#003B95]" />
                     <span className="text-sm">India</span>
                   </div>
                 </div>
@@ -78,11 +78,11 @@ const AwesomePackages = () => {
                 {/* Quick Info */}
                 <div className="flex items-center gap-4 mb-3">
                   <div className="flex items-center gap-1.5 text-gray-600">
-                    <Calendar className="w-4 h-4 text-[#84cc16]" />
+                    <Calendar className="w-4 h-4 text-[#003B95]" />
                     <span className="text-sm">{pkg.days}</span>
                   </div>
                   <div className="flex items-center gap-1.5 text-gray-600">
-                    <Users className="w-4 h-4 text-[#84cc16]" />
+                    <Users className="w-4 h-4 text-[#003B95]" />
                     <span className="text-sm">{pkg.persons}</span>
                   </div>
                 </div>
@@ -94,10 +94,10 @@ const AwesomePackages = () => {
 
                 {/* Price and Button */}
                 <div className="flex items-center justify-between">
-                  <div className="text-[#84cc16] font-bold text-lg">
+                  <div className="text-[#003B95] font-bold text-lg">
                     ₹{pkg.price}
                   </div>
-                  <button className="px-4 py-1.5 bg-[#84cc16] text-white text-sm rounded-lg hover:bg-[#65a30d] transition-colors">
+                  <button className="px-4 py-1.5 bg-[#003B95] text-white text-sm rounded-lg hover:bg-[#65a30d] transition-colors">
                     Book Now
                   </button>
                 </div>

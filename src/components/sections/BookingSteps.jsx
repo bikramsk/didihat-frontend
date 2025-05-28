@@ -29,8 +29,8 @@ const BookingSteps = () => {
         {/* Section Header */}
         <div className="flex flex-col items-start mb-8">
           <div className="flex items-center gap-2 mb-2">
-            <div className="h-[1px] w-8 bg-[#84cc16]"></div>
-            <span className="text-[#84cc16] font-medium uppercase tracking-wider text-sm">How It Works</span>
+            <div className="h-[1px] w-8 bg-[#003B95]"></div>
+            <span className="text-[#003B95] font-medium uppercase tracking-wider text-sm">How It Works</span>
           </div>
           <h2 className="text-xl md:text-2xl font-bold text-gray-900">Book in 3 Easy Steps</h2>
         </div>
@@ -43,13 +43,13 @@ const BookingSteps = () => {
               className="flex flex-col items-center text-center p-4 bg-white rounded-xl border-2 border-gray-200 transition-all duration-300 relative group"
             >
               {/* Step Number */}
-              <div className="absolute -top-3 bg-white px-3 py-1 rounded-full border-2 border-[#84cc16] font-bold text-[#84cc16] text-sm">
+              <div className="absolute -top-3 bg-white px-3 py-1 rounded-full border-2 border-[#003B95] font-bold text-[#003B95] text-sm">
                 {step.number}
               </div>
 
               {/* Icon Circle */}
               <div className="relative mb-4">
-                <div className="w-16 h-16 bg-[#84cc16] rounded-xl rotate-45 transform group-hover:rotate-0 transition-transform duration-300 flex items-center justify-center">
+                <div className="w-16 h-16 bg-[#003B95] rounded-xl rotate-45 transform group-hover:rotate-0 transition-transform duration-300 flex items-center justify-center">
                   <div className="-rotate-45 group-hover:rotate-0 transition-transform duration-300">
                     {step.icon}
                   </div>
@@ -57,14 +57,14 @@ const BookingSteps = () => {
                 {index < steps.length - 1 && (
                   <div className="hidden md:block absolute top-1/2 left-full w-full h-[2px]">
                     <div className="relative h-full">
-                      <div className="absolute top-0 left-0 w-full h-full bg-[#84cc16] transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
+                      <div className="absolute top-0 left-0 w-full h-full bg-[#003B95] transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
                     </div>
                   </div>
                 )}
               </div>
 
               {/* Content */}
-              <h3 className="text-lg font-bold text-gray-900 mb-2 group-hover:text-[#84cc16] transition-colors duration-300">
+              <h3 className="text-lg font-bold text-gray-900 mb-2 group-hover:text-[#003B95] transition-colors duration-300">
                 {step.title}
               </h3>
               <p className="text-gray-600 leading-relaxed text-sm">
@@ -72,7 +72,7 @@ const BookingSteps = () => {
               </p>
 
               {/* Decorative Elements */}
-              <div className="absolute top-0 left-0 w-full h-full rounded-xl bg-[#84cc16] opacity-0 group-hover:opacity-5 transition-opacity duration-300"></div>
+              <div className="absolute top-0 left-0 w-full h-full rounded-xl bg-[#003B95] opacity-0 group-hover:opacity-5 transition-opacity duration-300"></div>
             </div>
           ))}
         </div>

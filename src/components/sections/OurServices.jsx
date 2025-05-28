@@ -4,22 +4,22 @@ import { Globe2, Building2, Users2, Settings, Car, Mountain, Camera, Utensils } 
 const OurServices = () => {
   const servicesRow1 = [
     {
-      icon: <Globe2 className="w-10 h-10 text-[#84cc16]" />,
+      icon: <Globe2 className="w-10 h-10 text-[#003B95]" />,
       title: "Tour Packages",
       description: "Explore the diverse beauty of India with our carefully curated tour packages"
     },
     {
-      icon: <Building2 className="w-10 h-10 text-[#84cc16]" />,
+      icon: <Building2 className="w-10 h-10 text-[#003B95]" />,
       title: "Hotel Booking",
       description: "Best hotels and resorts at prime locations for your comfort"
     },
     {
-      icon: <Users2 className="w-10 h-10 text-[#84cc16]" />,
+      icon: <Users2 className="w-10 h-10 text-[#003B95]" />,
       title: "Expert Guides",
       description: "Professional guides to help you discover hidden gems"
     },
     {
-      icon: <Settings className="w-10 h-10 text-[#84cc16]" />,
+      icon: <Settings className="w-10 h-10 text-[#003B95]" />,
       title: "Travel Planning",
       description: "Customized travel itineraries and trip management services"
     }
@@ -27,22 +27,22 @@ const OurServices = () => {
 
   const servicesRow2 = [
     {
-      icon: <Car className="w-10 h-10 text-[#84cc16]" />,
+      icon: <Car className="w-10 h-10 text-[#003B95]" />,
       title: "Transport Services",
       description: "Comfortable and reliable transportation with experienced drivers"
     },
     {
-      icon: <Mountain className="w-10 h-10 text-[#84cc16]" />,
+      icon: <Mountain className="w-10 h-10 text-[#003B95]" />,
       title: "Adventure Tours",
       description: "Exciting adventure activities across India's diverse landscapes"
     },
     {
-      icon: <Camera className="w-10 h-10 text-[#84cc16]" />,
+      icon: <Camera className="w-10 h-10 text-[#003B95]" />,
       title: "Photography Tours",
       description: "Capture the breathtaking landscapes and cultural heritage of India"
     },
     {
-      icon: <Utensils className="w-10 h-10 text-[#84cc16]" />,
+      icon: <Utensils className="w-10 h-10 text-[#003B95]" />,
       title: "Food Experience",
       description: "Experience diverse regional cuisines and authentic local delicacies across India"
     }
@@ -54,8 +54,8 @@ const OurServices = () => {
         {/* Section Header */}
         <div className="flex flex-col items-start mb-12">
           <div className="flex items-center gap-2 mb-2">
-            <div className="h-[1px] w-8 bg-[#84cc16]"></div>
-            <span className="text-[#84cc16] font-medium uppercase tracking-wider text-sm">Our Services</span>
+            <div className="h-[1px] w-8 bg-[#003B95]"></div>
+            <span className="text-[#003B95] font-medium uppercase tracking-wider text-sm">Our Services</span>
           </div>
           <h2 className="text-xl md:text-2xl font-bold text-gray-900">What we offer</h2>
         </div>
