@@ -1,0 +1,79 @@
+
+.reviewsSwiper :global(.swiper-button-next),
+.reviewsSwiper :global(.swiper-button-prev) {
+  display: none;
+}
+
+
+.navButton {
+  position: absolute;
+  top: 40%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  background: white;
+  border-radius: 50%;
+  color: #002D70;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.navButton:hover {
+  background: #f8fafc;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.prevButton {
+  left: 0;
+}
+
+.nextButton {
+  right: 0;
+}
+
+
+.reviewsContainer {
+  position: relative;
+  padding: 0 50px;
+  margin: 0 -20px;
+  overflow: hidden;
+}
+
+
+.reviewsSwiper {
+  overflow: visible;
+}
+
+
+.reviewsSwiper :global(.swiper-pagination) {
+  position: relative;
+  margin-top: 20px;
+}
+
+.reviewsSwiper :global(.swiper-pagination-bullet) {
+  width: 8px;
+  height: 8px;
+  background: #002D70;
+  opacity: 0.2;
+}
+
+.reviewsSwiper :global(.swiper-pagination-bullet-active) {
+  opacity: 1;
+  background: #002D70;
+}
+
+
+.reviewCard {
+  background: white;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  padding: 1.5rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+} 

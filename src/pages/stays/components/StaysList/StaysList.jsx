@@ -35,21 +35,6 @@ const StaysList = () => {
   const [isDropdownOpen, setIsDropdownOpen] = React.useState(false);
   const [viewMode, setViewMode] = useState('grid');
 
-  const hasActiveFilters = () => {
-    return (
-      filters.location ||
-      filters.popularFilters.length > 0 ||
-      filters.amenities.length > 0 ||
-      filters.propertyTypes.length > 0 ||
-      filters.propertyRating.length > 0 ||
-      filters.mealOptions.length > 0 ||
-      filters.roomFacilities.length > 0 ||
-      filters.activities?.length > 0 ||
-      filters.priceRange[0] > 0 ||
-      filters.priceRange[1] < 10000
-    );
-  };
-
   const handleLoadMore = () => {
     fetchStays(true);
   };
@@ -88,13 +73,12 @@ const StaysList = () => {
       {/* Header with count, sort, and view toggle */}
       <div className={styles.header}>
         <h2 className={styles.resultCount}>
-          {hasActiveFilters() ? (
-            <>
-              <span>{stays.length} stays found</span>
-              <span className={styles.totalCount}> (out of {pagination.total} total)</span>
-            </>
+          {filters.location ? (
+            <span>{filters.location}: {stays.length} {stays.length === 1 ? 'stay' : 'stays'} found</span>
+          ) : filters.priceRange[0] > 0 || filters.priceRange[1] < 10000 ? (
+            <span>{stays.length} {stays.length === 1 ? 'stay' : 'stays'} found</span>
           ) : (
-            <span>{pagination.total} stays found</span>
+            <span>{pagination.total} {pagination.total === 1 ? 'stay' : 'stays'} found</span>
           )}
         </h2>
         <div className={styles.headerControls}>
@@ -146,10 +130,15 @@ const StaysList = () => {
       {/* Stays Grid/List */}
       <div className={`${styles.staysContainer} ${styles[viewMode]}`}>
         {stays.map(stay => (
-          <Link 
-            to={`/stays/${stay.slug}`} 
+          <a 
+            href={`/stays/${stay.slug}`} 
             key={stay.id} 
             className={styles.stayCardLink}
+            onClick={(e) => {
+              // Force page reload when clicking on a stay
+              window.location.href = `/stays/${stay.slug}`;
+              e.preventDefault();
+            }}
           >
             <div className={styles.stayCard}>
               <div className={styles.imageContainer}>
@@ -162,6 +151,7 @@ const StaysList = () => {
                   className={styles.wishlistButton}
                   onClick={(e) => {
                     e.preventDefault();
+                    e.stopPropagation();
                   }}
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
@@ -200,7 +190,7 @@ const StaysList = () => {
                 </div>
               </div>
             </div>
-          </Link>
+          </a>
         ))}
       </div>
 

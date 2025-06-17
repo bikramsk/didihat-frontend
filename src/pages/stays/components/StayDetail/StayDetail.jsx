@@ -16,6 +16,8 @@ import {
   X
 } from 'lucide-react';
 import SearchBar from '../SearchBar/SearchBar';
+import { StaysProvider } from '../../context/StaysContext';
+import Reviews from '../Reviews/Reviews';
 
 const STRAPI_URL = 'http://localhost:1337';
 const API_TOKEN = import.meta.env.VITE_API_TOKEN;
@@ -581,12 +583,14 @@ const StayDetail = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 ">
+    <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
       <section className="bg-gray-900 pt-28 pb-16">
         <div className="container mx-auto px-4 flex justify-center items-center">
           <div className="w-full max-w-4xl mt-6">
-            <SearchBar />
+            <StaysProvider>
+              <SearchBar />
+            </StaysProvider>
           </div>
         </div>
       </section>
@@ -622,7 +626,7 @@ const StayDetail = () => {
               </button>
               
               {showShareDropdown && (
-                <div className="absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-50">
+                <div className="absolute right-50 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-50">
                   <div className="py-1" role="menu" aria-orientation="vertical">
                     <button
                       onClick={() => handleShare('copy')}
@@ -981,6 +985,16 @@ const StayDetail = () => {
               <p className="text-gray-700 text-base mb-4">Please check the property policies below.</p>
             </div>
             <HouseRulesSection houseRules={stay.house_rules} />
+          </div>
+        </div>
+
+        {/* Reviews Section */}
+        <div className="container mx-auto mb-16">
+          <div className="bg-white border rounded-xl shadow-sm">
+            <div className="p-8">
+              
+              <Reviews stayId={stay.id} />
+            </div>
           </div>
         </div>
 

@@ -28,7 +28,7 @@ export const StaysProvider = ({ children }) => {
     location: '',
     dates: null,
     guests: 1,
-    priceRange: [0, 10000],
+    priceRange: [0, 50000],
     popularFilters: [],
     amenities: [],
     propertyTypes: [],
@@ -44,20 +44,24 @@ export const StaysProvider = ({ children }) => {
       setLoading(true);
       const page = loadMore ? pagination.page + 1 : 1;
       
-      console.log('Fetching stays with URL:', `${STRAPI_URL}/api/stays?populate=*&pagination[page]=${page}&pagination[pageSize]=${pagination.pageSize}`);
+      let queryUrl = `${STRAPI_URL}/api/stays?populate=*&pagination[page]=${page}&pagination[pageSize]=${pagination.pageSize}`;
       
-      const response = await fetch(
-        `${STRAPI_URL}/api/stays?populate=*&pagination[page]=${page}&pagination[pageSize]=${pagination.pageSize}`, 
-        {
-          headers: {
-            'Authorization': `Bearer ${API_TOKEN}`,
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-          },
-          credentials: 'include',
-          mode: 'cors'
-        }
-      );
+      // Add location filter if present
+      if (filters.location) {
+        queryUrl += `&filters[location][$containsi]=${encodeURIComponent(filters.location)}`;
+      }
+      
+      console.log('Fetching stays with URL:', queryUrl);
+      
+      const response = await fetch(queryUrl, {
+        headers: {
+          'Authorization': `Bearer ${API_TOKEN}`,
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        credentials: 'include',
+        mode: 'cors'
+      });
       
       if (!response.ok) {
         const errorData = await response.json();
@@ -75,10 +79,7 @@ export const StaysProvider = ({ children }) => {
 
       const transformedStays = data.data.map(stay => {
         try {
-          // Get the main image URL
           const imageUrl = stay.image?.url || null;
-
-          // Transform the data
           const transformedStay = {
             id: stay.id,
             documentId: stay.documentId,
@@ -97,7 +98,6 @@ export const StaysProvider = ({ children }) => {
             roomFacilities: stay.room_facilities || [],
             activities: stay.activities || []
           };
-
           return transformedStay;
         } catch (error) {
           console.error('Error processing stay:', error, stay);
@@ -105,7 +105,13 @@ export const StaysProvider = ({ children }) => {
         }
       }).filter(Boolean);
 
-      console.log('Transformed stays:', transformedStays);
+      // Apply price range filter
+      const filteredStays = transformedStays.filter(stay => {
+        // Remove currency symbol and commas, then convert to number
+        const price = Number(stay.price.replace(/[^0-9.]/g, ''));
+        console.log('Filtering stay:', stay.name, 'price:', price, 'range:', filters.priceRange);
+        return price >= filters.priceRange[0] && price <= filters.priceRange[1];
+      });
 
       setPagination({
         page,
@@ -114,7 +120,7 @@ export const StaysProvider = ({ children }) => {
         hasMore: data.meta?.pagination?.page < (data.meta?.pagination?.pageCount || 0)
       });
 
-      setStays(loadMore ? [...stays, ...transformedStays] : transformedStays);
+      setStays(loadMore ? [...stays, ...filteredStays] : filteredStays);
       setError(null);
     } catch (error) {
       console.error('Error fetching stays:', error);
@@ -134,12 +140,6 @@ export const StaysProvider = ({ children }) => {
         stay.location.toLowerCase().includes(filters.location.toLowerCase())
       );
     }
-
-    // Apply price range filter
-    filteredStays = filteredStays.filter(stay => {
-      const price = parseInt(stay.price.replace(/[^\d]/g, ''));
-      return price >= filters.priceRange[0] && price <= filters.priceRange[1];
-    });
 
     // Apply property type filter
     if (filters.propertyTypes.length > 0) {
@@ -225,7 +225,6 @@ export const StaysProvider = ({ children }) => {
         filteredStays.sort((a, b) => b.rating - a.rating);
         break;
       default:
-       
         break;
     }
 
@@ -295,7 +294,8 @@ export const StaysProvider = ({ children }) => {
 
   useEffect(() => {
     fetchStays();
-  }, []);
+    // eslint-disable-next-line
+  }, [filters.location, filters.priceRange]);
 
   const value = {
     stays: getFilteredAndSortedStays(),

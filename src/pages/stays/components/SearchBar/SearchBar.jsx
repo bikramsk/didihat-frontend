@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Search, MapPin, Calendar, Users, Plus, Minus } from 'lucide-react';
 import styles from './SearchBar.module.css';
+import { useStaysContext } from '../../context/StaysContext';
 
 const SearchBar = () => {
   const [isGuestsOpen, setIsGuestsOpen] = useState(false);
@@ -20,11 +21,13 @@ const SearchBar = () => {
     rooms: 1
   });
 
+  const { fetchStays, setFilters } = useStaysContext();
+
   const trendingDestinations = [
-    { name: 'Rishikesh' },
+    { name: 'Ramnagar' },
     { name: 'Mumbai' },
-    { name: 'Jaipur' },
-    { name: 'Rajasthan' },
+    { name: 'Kolhapur' },
+    { name: 'Pune' },
     { name: 'New Delhi' }
   ];
 
@@ -68,12 +71,12 @@ const SearchBar = () => {
     setDates(prev => {
       const newDates = { ...prev, [type]: value };
       
-      // If setting check-in date and it's after check-out, clear check-out
+      
       if (type === 'checkIn' && prev.checkOut && new Date(value) > new Date(prev.checkOut)) {
         newDates.checkOut = '';
       }
       
-      // If setting check-out date and it's before check-in, clear check-in
+     
       if (type === 'checkOut' && prev.checkIn && new Date(value) < new Date(prev.checkIn)) {
         newDates.checkIn = '';
       }
@@ -84,15 +87,42 @@ const SearchBar = () => {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    // Handle search logic
-    console.log('Search params:', {
+    
+    // Update filters with the search parameters
+    setFilters(prev => ({
+      ...prev,
       location: searchValue,
-      dates,
-      guests
+      dates: dates,
+      guests: guests
+    }));
+
+    // Navigate to stays page if we're not already there
+    const currentPath = window.location.pathname;
+    if (!currentPath.startsWith('/stays') || currentPath.split('/').length > 2) {
+      
+      window.open(`/stays?location=${encodeURIComponent(searchValue)}`, '_blank');
+    } else {
+      
+      fetchStays();
+    }
+
+    // Close all dropdowns
+    setIsLocationOpen(false);
+    setIsDatesOpen(false);
+    setIsGuestsOpen(false);
+  };
+
+  // Filter destinations based on search input
+  const getFilteredDestinations = () => {
+    if (!searchValue) return trendingDestinations;
+
+    const searchTerms = searchValue.toLowerCase().split(/[\s,]+/);
+    return trendingDestinations.filter(destination => {
+      const destinationLower = destination.name.toLowerCase();
+      return searchTerms.some(term => destinationLower.includes(term));
     });
   };
 
-  // Get today's date in YYYY-MM-DD format for min date attribute
   const today = new Date().toISOString().split('T')[0];
 
   return (
@@ -121,7 +151,7 @@ const SearchBar = () => {
               <div className="p-4">
                 <h3 className="text-sm font-medium text-gray-900 mb-3">Trending Destinations</h3>
                 <div className="space-y-2">
-                  {trendingDestinations.map((destination) => (
+                  {getFilteredDestinations().map((destination) => (
                     <button
                       key={destination.name}
                       type="button"

@@ -170,7 +170,7 @@ const funActivities = [
 const INITIAL_SHOW_COUNT = 5;
 
 const Filters = ({ onClose }) => {
-  const { filters, setFilters, staysCounts } = useStaysContext();
+  const { filters, setFilters, staysCounts, fetchStays } = useStaysContext();
   const [showAllAmenities, setShowAllAmenities] = useState(false);
   const [showAllRoomFacilities, setShowAllRoomFacilities] = useState(false);
   // const [showAllPropertyTypes, setShowAllPropertyTypes] = useState(false);
@@ -227,8 +227,14 @@ const Filters = ({ onClose }) => {
   const handlePriceChange = (type, value) => {
     const numValue = parseInt(value) || 0;
     const newPriceRange = [...filters.priceRange];
-    newPriceRange[type === 'min' ? 0 : 1] = numValue;
+    if (type === 'min') {
+      newPriceRange[0] = Math.max(0, Math.min(numValue, newPriceRange[1]));
+    } else {
+      newPriceRange[1] = Math.max(newPriceRange[0], Math.min(numValue, 50000));
+    }
     setFilters({ ...filters, priceRange: newPriceRange });
+    // Fetch stays with new price range
+    fetchStays();
   };
 
   const handleClearAll = () => {
