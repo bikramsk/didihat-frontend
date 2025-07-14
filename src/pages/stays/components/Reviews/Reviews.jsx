@@ -7,7 +7,10 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import styles from './Reviews.module.css';
 
-const STRAPI_URL = 'http://localhost:1337';
+const STRAPI_URL = import.meta.env.MODE === "production"
+? "https://demo.didihat.com"
+: "http://localhost:1350";
+
 const API_TOKEN = import.meta.env.VITE_API_TOKEN;
 
 const StarRating = ({ rating, setRating }) => {
@@ -324,7 +327,7 @@ const Reviews = ({ stayId }) => {
           onClick={() => setShowForm(!showForm)}
           className="bg-[#002D70] text-white px-4 py-2 rounded-lg hover:bg-[#003B95] transition-colors"
         >
-          {showForm ? 'Hide Form' : 'Write a Review'}
+          {showForm ? 'Close' : 'Write a Review'}
         </button>
       </div>
 

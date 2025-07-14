@@ -19,7 +19,10 @@ import SearchBar from '../SearchBar/SearchBar';
 import { StaysProvider } from '../../context/StaysContext';
 import Reviews from '../Reviews/Reviews';
 
-const STRAPI_URL = 'http://localhost:1337';
+const STRAPI_URL = import.meta.env.MODE === "production"
+  ? "https://demo.didihat.com"
+  : "http://localhost:1350";
+  
 const API_TOKEN = import.meta.env.VITE_API_TOKEN;
 
 const formatPrice = (price) => {
