@@ -370,13 +370,11 @@ const StayDetail = () => {
 
         // Fetch the specific stay using slug with populated relations
         const response = await fetch(
-          `${API_URL}/api/stays?filters[slug][$eq]=${id}&populate[stayimages][populate]=*&populate[room_types][populate]=*&populate[amenities][populate]=*`,
-          {
-            headers: {
-              Authorization: `Bearer ${API_TOKEN}`
-            }
-          }
+          `${API_URL}/api/stays?filters[slug][$eq]=${id}&populate[stayimages][populate]=*&populate[room_types][populate]=*&populate[amenities][populate]=*`
+          
         );
+
+
 
         const responseData = await response.json();
 

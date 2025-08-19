@@ -76,7 +76,7 @@ const TourPackageDetails = () => {
           throw new Error('Invalid URL');
         }
 
-        // First try to find tour packages by location or name (case-insensitive and partial match)
+      
         const searchUrl = `${API_URL}/api/tour-packages?filters[$or][0][location][$containsi]=${locationId}&filters[$or][1][name][$containsi]=${locationId}&populate=*`;
         const response = await fetch(searchUrl, { headers: getHeaders() });
         const data = await response.json();
