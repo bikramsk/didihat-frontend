@@ -1,12 +1,18 @@
 import React, { useState } from 'react';
 import { Mail, Lock, X, Eye, EyeOff } from 'lucide-react';
+import Modal from '../common/Modal';
+import ForgotPassword from './ForgotPassword';
 
 const Login = ({ onClose, onSwitchToSignup }) => {
+
+  const [resetModalOpen, setResetModalOpen] = useState(false);
+
   const [formData, setFormData] = useState({
     email: '',
     password: ''
   });
   const [showPassword, setShowPassword] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -20,10 +26,50 @@ const Login = ({ onClose, onSwitchToSignup }) => {
     setShowPassword(!showPassword);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('Login data:', formData);
-  };
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+  setErrorMessage(''); 
+
+  try {
+    const response = await fetch("http://localhost:1350/api/auth/local", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        identifier: formData.email,
+        password: formData.password
+      })
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.error?.message || "Login failed");
+    }
+
+    // Store token and user info
+    localStorage.setItem("jwt", data.jwt);
+    localStorage.setItem("user", JSON.stringify(data.user));
+
+   
+    onClose();
+    window.location.href = "/";
+
+  } catch (err) {
+   
+    let userFriendlyMessage = err.message;
+
+    if (err.message.toLowerCase().includes('invalid identifier or password')) {
+      userFriendlyMessage = 'Invalid email or password. Please check your credentials and try again.';
+    } else if (err.message.toLowerCase().includes('login failed')) {
+      userFriendlyMessage = 'Login failed. Please check your email and password.';
+    }
+
+    setErrorMessage(userFriendlyMessage);
+  }
+};
+
 
   const handleSwitchToSignup = () => {
     onClose();
@@ -32,7 +78,7 @@ const Login = ({ onClose, onSwitchToSignup }) => {
 
   return (
     <div className="flex w-full relative h-[550px] md:h-[550px] rounded-lg overflow-hidden">
-      {/* Close Button */}
+
       <button 
         className="absolute right-4 top-4 text-gray-400 hover:text-gray-600 z-10"
         onClick={onClose}
@@ -40,7 +86,7 @@ const Login = ({ onClose, onSwitchToSignup }) => {
         <X className="h-6 w-6" />
       </button>
 
-      {/* Left Section - Image and Brand */}
+      {/* Image and Logo */}
       <div className="hidden lg:flex lg:w-2/5 relative">
         <div className="absolute inset-0">
           <img
@@ -67,7 +113,7 @@ const Login = ({ onClose, onSwitchToSignup }) => {
         </div>
       </div>
 
-      {/* Right Section - Login Form */}
+      {/* Form */}
       <div className="w-full lg:w-3/5 flex items-center justify-center p-6 bg-white">
         <div className="w-full max-w-lg">
           <div className="text-center mb-4">
@@ -80,7 +126,7 @@ const Login = ({ onClose, onSwitchToSignup }) => {
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
-            {/* Email Input */}
+            {/* Email */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Email
@@ -102,7 +148,7 @@ const Login = ({ onClose, onSwitchToSignup }) => {
               </div>
             </div>
 
-            {/* Password Input */}
+            {/* Password */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Password
@@ -136,13 +182,27 @@ const Login = ({ onClose, onSwitchToSignup }) => {
             </div>
 
             {/* Forgot Password */}
-            <div className="flex justify-end">
+
+            <button
+     type="button"
+     className="text-sm text-[#003B95] hover:#002D70"
+     onClick={() => setResetModalOpen(true)}
+   >
+     Forgot your password?
+   </button>
+
+   <Modal isOpen={resetModalOpen} onClose={() => setResetModalOpen(false)}>
+     <ForgotPassword onClose={() => setResetModalOpen(false)} />
+   </Modal>
+            {/* <div className="flex justify-end">
               <button type="button" className="text-sm text-[#003B95] hover:#002D70">
                 Forgot your password?
               </button>
-            </div>
+            </div> */}
+            
 
-            {/* Login Button */}
+    
+            {/* Login */}
             <button
               type="submit"
               className="w-full py-1.5 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-[#003B95] hover:bg-[#002D70] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#002D70]"
@@ -150,7 +210,13 @@ const Login = ({ onClose, onSwitchToSignup }) => {
               LOGIN
             </button>
 
-            {/* Divider */}
+            {/* Error Message */}
+            {errorMessage && (
+              <div className="mt-3 p-3 rounded-lg text-sm text-center bg-red-50 text-red-700 border border-red-200">
+                {errorMessage}
+              </div>
+            )}
+
             <div className="relative my-4">
               <div className="absolute inset-0 flex items-center">
                 <div className="w-full border-t border-gray-300"></div>
@@ -160,7 +226,7 @@ const Login = ({ onClose, onSwitchToSignup }) => {
               </div>
             </div>
 
-            {/* Social Login */}
+            {/* Social */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <button
                 type="button"
@@ -185,7 +251,7 @@ const Login = ({ onClose, onSwitchToSignup }) => {
               </button>
             </div>
 
-            {/* Sign Up Link */}
+            {/* Sign Up */}
             <p className="mt-4 text-center text-sm text-gray-600">
               Don't have account?{' '}
               <button 
@@ -199,6 +265,9 @@ const Login = ({ onClose, onSwitchToSignup }) => {
           </form>
         </div>
       </div>
+
+
+      
     </div>
   );
 };

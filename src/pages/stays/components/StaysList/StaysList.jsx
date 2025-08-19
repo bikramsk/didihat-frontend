@@ -4,7 +4,7 @@ import { useStaysContext } from '../../context/StaysContext';
 import { Link } from 'react-router-dom';
 import styles from './StaysList.module.css';
 
-const STRAPI_URL = import.meta.env.MODE === "production"
+const API_URL = import.meta.env.MODE === "production"
   ? "https://demo.didihat.com"
   : "http://localhost:1350";
 

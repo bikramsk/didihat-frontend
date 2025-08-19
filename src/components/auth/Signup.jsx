@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import { Mail, Lock, User, Phone, Eye, EyeOff, X } from 'lucide-react';
+import { useNavigate } from "react-router-dom";
 
 const Signup = ({ onClose, onSwitchToLogin }) => {
+  
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [formData, setFormData] = useState({
@@ -12,6 +15,8 @@ const Signup = ({ onClose, onSwitchToLogin }) => {
     confirmPassword: '',
     agreeToTerms: false
   });
+  const [message, setMessage] = useState('');
+  const [isSuccess, setIsSuccess] = useState(false);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -21,13 +26,49 @@ const Signup = ({ onClose, onSwitchToLogin }) => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setMessage('');
+
     if (formData.password !== formData.confirmPassword) {
-      alert("Passwords don't match!");
+      setMessage("Passwords don't match!");
       return;
     }
-    console.log('Signup data:', formData);
+
+    try {
+      const response = await fetch("http://localhost:1350/api/auth/local/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          username: formData.fullName,
+          email: formData.email,
+          password: formData.password
+        })
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error?.message || "Registration failed");
+      }
+
+
+      localStorage.setItem("jwt", data.jwt);
+      localStorage.setItem("user", JSON.stringify(data.user));
+
+      setIsSuccess(true);
+      setMessage("Registration successful! Please check your email and click the confirmation link to activate your account.");
+
+      setTimeout(() => {
+        onClose();
+        navigate("/");
+      }, 3000);
+
+    } catch (err) {
+      setMessage(err.message);
+    }
   };
 
   const handleSwitchToLogin = () => {
@@ -37,7 +78,7 @@ const Signup = ({ onClose, onSwitchToLogin }) => {
 
   return (
     <div className="flex w-full relative h-[550px] md:h-[550px] rounded-lg overflow-hidden">
-      {/* Close Button */}
+     
       <button 
         className="absolute right-2 top-2 md:right-4 md:top-4 text-gray-400 hover:text-gray-600 z-10"
         onClick={onClose}
@@ -45,7 +86,7 @@ const Signup = ({ onClose, onSwitchToLogin }) => {
         <X className="h-5 w-5 md:h-6 md:w-6" />
       </button>
 
-      {/* Left Section - Image and Brand */}
+      {/* Image and Logo */}
        <div className="hidden lg:flex lg:w-2/5 relative">
         <div className="absolute inset-0">
           <img
@@ -74,7 +115,7 @@ const Signup = ({ onClose, onSwitchToLogin }) => {
       </div> 
       
 
-      {/* Right Section - Signup Form */}
+      {/* Form */}
       <div className="w-full lg:w-3/5 flex items-center justify-center p-3 md:p-6 bg-white">
         <div className="w-full max-w-lg">
           <div className="text-center mb-2 md:mb-4">
@@ -87,7 +128,7 @@ const Signup = ({ onClose, onSwitchToLogin }) => {
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-2 md:space-y-3">
-            {/* Full Name Input */}
+            {/* Full Name */}
             <div>
               <label className="block text-xs md:text-sm font-medium text-gray-700 mb-1">
                 Full Name
@@ -110,7 +151,7 @@ const Signup = ({ onClose, onSwitchToLogin }) => {
               </div>
             </div>
 
-            {/* Email and Phone Grid */}
+            {/* Email and Phone */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 md:gap-3">
               {/* Email Input */}
               <div>
@@ -135,7 +176,7 @@ const Signup = ({ onClose, onSwitchToLogin }) => {
                 </div>
               </div>
 
-              {/* Phone Input */}
+              {/* Phone */}
               <div>
                 <label className="block text-xs md:text-sm font-medium text-gray-700 mb-1">
                   Phone
@@ -159,9 +200,9 @@ const Signup = ({ onClose, onSwitchToLogin }) => {
               </div>
             </div>
 
-            {/* Password and Confirm Password Grid */}
+            {/* Password and Confirm Password */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 md:gap-3">
-              {/* Password Input */}
+             
               <div>
                 <label className="block text-xs md:text-sm font-medium text-gray-700 mb-1">
                   Password
@@ -195,7 +236,7 @@ const Signup = ({ onClose, onSwitchToLogin }) => {
                 </div>
               </div>
 
-              {/* Confirm Password Input */}
+              
               <div>
                 <label className="block text-xs md:text-sm font-medium text-gray-700 mb-1">
                   Confirm Password
@@ -257,7 +298,7 @@ const Signup = ({ onClose, onSwitchToLogin }) => {
               </div>
             </div>
 
-            {/* Submit Button */}
+            {/* Submit */}
             <button
               type="submit"
               className="w-full flex justify-center items-center px-4 py-1.5 md:py-2 border border-transparent rounded-lg shadow-sm text-xs md:text-sm font-medium text-white bg-[#003B95] hover:bg-[#002D70] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#003B95] mt-2 md:mt-3"
@@ -265,7 +306,18 @@ const Signup = ({ onClose, onSwitchToLogin }) => {
              CREATE ACCOUNT
             </button>
 
-            {/* Login Link */}
+            {/* Success/Error Message */}
+            {message && (
+              <div className={`mt-3 p-3 rounded-lg text-xs md:text-sm text-center ${
+                isSuccess
+                  ? 'bg-green-50 text-green-700 border border-green-200'
+                  : 'bg-red-50 text-red-700 border border-red-200'
+              }`}>
+                {message}
+              </div>
+            )}
+
+            {/* Login  */}
             <p className="mt-2 md:mt-3 text-center text-xs md:text-sm text-gray-600">
               Already have an account?{' '}
               <button 
@@ -278,7 +330,7 @@ const Signup = ({ onClose, onSwitchToLogin }) => {
             </p>
           </form>
 
-          {/* Divider */}
+          
           <div className="relative my-4">
             <div className="absolute inset-0 flex items-center">
               <div className="w-full border-t border-gray-300"></div>
@@ -288,7 +340,7 @@ const Signup = ({ onClose, onSwitchToLogin }) => {
             </div>
           </div>
 
-          {/* Social Login Buttons */}
+          {/* Social Buttons */}
           <div className="flex gap-2">
             <button
               type="button"
