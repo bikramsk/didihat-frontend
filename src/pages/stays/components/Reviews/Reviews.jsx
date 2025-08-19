@@ -8,7 +8,7 @@ import { Navigation, Pagination } from "swiper/modules";
 
 const API_URL =
   import.meta.env.MODE === "production"
-    ? "https://demo.didihat.com/api/reviews"
+    ? "https://admin.didihat.com/api/reviews"
     : "http://localhost:1350/api/reviews";
 
 export default function Reviews({ stayId }) {

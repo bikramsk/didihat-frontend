@@ -2,17 +2,28 @@ export const EmailService = {
   
   async sendBookingConfirmation(bookingData) {
     try {
-      console.log('Sending email with data:', bookingData); // Debug log
+      console.log('Sending email with data:', bookingData); 
       
-      
-      const response = await fetch('http://localhost:1350/api/send-booking-email', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
-        },
-        body: JSON.stringify(bookingData),
-      });
+      const API_URL = import.meta.env.MODE === "production"
+  ? "https://admin.didihat.com"
+  : "http://localhost:1350";
+
+const response = await fetch(`${API_URL}/api/send-booking-email`, {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
+  },
+  body: JSON.stringify(bookingData),
+});
+      // const response = await fetch('http://localhost:1350/api/send-booking-email', {
+      //   method: 'POST',
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //     'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
+      //   },
+      //   body: JSON.stringify(bookingData),
+      // });
 
       console.log('Response status:', response.status); 
 

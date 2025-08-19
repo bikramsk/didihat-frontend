@@ -14,8 +14,12 @@ const ForgotPassword = ({ onClose }) => {
     setIsSuccess(false);
 
 
-    try {
-      const res = await fetch('http://localhost:1350/api/auth/forgot-password', {
+   const API_URL = import.meta.env.MODE === "production"
+  ? "https://admin.didihat.com"
+  : "http://localhost:1350";
+
+try {
+  const res = await fetch(`${API_URL}/api/auth/forgot-password`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email }),

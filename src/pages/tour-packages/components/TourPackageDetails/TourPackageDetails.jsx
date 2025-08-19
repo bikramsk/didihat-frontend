@@ -11,7 +11,7 @@ const sortOptions = [
 ];
 
 const API_URL = import.meta.env.MODE === "production"
-  ? "https://demo.didihat.com"
+  ? "https://admin.didihat.com"
   : "http://localhost:1350";
 
 const API_TOKEN = import.meta.env.VITE_API_TOKEN;

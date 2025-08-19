@@ -35,8 +35,14 @@ const Signup = ({ onClose, onSwitchToLogin }) => {
       return;
     }
 
+const API_URL = import.meta.env.MODE === "production"
+  ? "https://admin.didihat.com"
+  : "http://localhost:1350";
+
+    
     try {
-      const response = await fetch("http://localhost:1350/api/auth/local/register", {
+      // const response = await fetch("http://localhost:1350/api/auth/local/register", {
+        const response = await fetch(`${API_URL}/api/auth/local/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

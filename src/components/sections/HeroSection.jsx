@@ -21,7 +21,7 @@ const HeroSection = () => {
     { name: 'New Delhi' }
   ];
 
-  // Add click outside handler for both dropdowns
+  
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {

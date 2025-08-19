@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import styles from './StaysList.module.css';
 
 const API_URL = import.meta.env.MODE === "production"
-  ? "https://demo.didihat.com"
+  ? "https://admin.didihat.com"
   : "http://localhost:1350";
 
 const sortOptions = [
