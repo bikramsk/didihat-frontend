@@ -373,10 +373,10 @@ const Dashboard = () => {
                         </div>
                       ) : error ? (
                         <div className="text-center py-12">
-                          <div className="w-24 h-24 mx-auto mb-4 bg-red-100 rounded-full flex items-center justify-center">
-                            <X className="w-12 h-12 text-red-500" />
-                          </div>
-                          <h3 className="text-lg font-medium text-gray-900 mb-2">Error Loading Bookings</h3>
+                          
+                            {/* <X className="w-12 h-12 text-red-500" /> */}
+                          
+                          {/* <h3 className="text-lg font-medium text-gray-900 mb-2">Error Loading Bookings</h3> */}
                           <p className="text-gray-500 mb-6">{error}</p>
                           <button
                             onClick={() => fetchBookings(activeTab, activeTab)}
@@ -462,10 +462,7 @@ const Dashboard = () => {
                               </div>
 
                               <div className="mt-4 pt-4 border-t border-gray-200 flex justify-between items-center">
-                                <div className="text-sm text-gray-500">
-                                  {booking.itemCount} item{booking.itemCount !== 1 ? 's' : ''} •
-                                  Payment: {booking.paymentStatus}
-                                </div>
+                               
                                 <div className="flex gap-2">
                                   <button className="px-4 py-2 text-sm border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
                                     View Details
