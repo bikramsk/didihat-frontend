@@ -4,9 +4,10 @@ import { Sliders, MapPin, Calendar, Star, ChevronDown } from 'lucide-react';
 import Filters from '../Filters/Filters';
 import styles from './AttractionDetails.module.css';
 
-const API_URL = import.meta.env.MODE === "production"
-  ? "https://admin.didihat.com"
-  : "http://localhost:1350";
+// const API_URL = import.meta.env.MODE === "production"
+//   ? "https://admin.didihat.com"
+//   : "http://localhost:1350";
+  const API_URL = import.meta.env.VITE_PUBLIC_STRAPI_API_URL;
 
 const API_TOKEN = import.meta.env.VITE_API_TOKEN;
 

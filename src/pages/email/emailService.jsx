@@ -4,9 +4,11 @@ export const EmailService = {
     try {
       console.log('Sending email with data:', bookingData); 
       
-      const API_URL = import.meta.env.MODE === "production"
-  ? "https://admin.didihat.com"
-  : "http://localhost:1350";
+  //     const API_URL = import.meta.env.MODE === "production"
+  // ? "https://admin.didihat.com"
+  // : "http://localhost:1350";
+
+  const API_URL = import.meta.env.VITE_PUBLIC_STRAPI_API_URL;
 
 const response = await fetch(`${API_URL}/api/send-booking-email`, {
   method: 'POST',

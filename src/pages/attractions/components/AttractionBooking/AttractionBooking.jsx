@@ -3,9 +3,11 @@ import { MapPin, Star, Calendar, Clock, Share2, Heart, ChevronLeft, ChevronRight
 import { useNavigate, useParams } from 'react-router-dom';
 import { useCart } from '../../../../context/CartContext';
 
-const API_URL = import.meta.env.MODE === "production"
-  ? "https://admin.didihat.com"
-  : "http://localhost:1350";
+// const API_URL = import.meta.env.MODE === "production"
+//   ? "https://admin.didihat.com"
+//   : "http://localhost:1350";
+
+  const API_URL = import.meta.env.VITE_PUBLIC_STRAPI_API_URL;
 
 const API_TOKEN = import.meta.env.VITE_API_TOKEN;
 

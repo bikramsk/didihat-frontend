@@ -35,10 +35,10 @@ const Signup = ({ onClose, onSwitchToLogin }) => {
       return;
     }
 
-const API_URL = import.meta.env.MODE === "production"
-  ? "https://admin.didihat.com"
-  : "http://localhost:1350";
-
+// const API_URL = import.meta.env.MODE === "production"
+//   ? "https://admin.didihat.com"
+//   : "http://localhost:1350";
+const API_URL = import.meta.env.VITE_PUBLIC_STRAPI_API_URL;
     
     try {
       // const response = await fetch("http://localhost:1350/api/auth/local/register", {
