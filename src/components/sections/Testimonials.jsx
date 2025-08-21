@@ -50,7 +50,7 @@ const Testimonials = () => {
   return (
     <section className="py-16 bg-gray-50">
       <div className="container mx-auto px-4">
-        {/* Section Header */}
+        
         <div className="flex flex-col items-start mb-12">
           <div className="flex items-center gap-2 mb-2">
             <div className="h-[1px] w-8 bg-[#003B95]"></div>
@@ -59,7 +59,7 @@ const Testimonials = () => {
           <h2 className="text-xl md:text-2xl font-bold text-gray-900">What Our Customers Say</h2>
         </div>
 
-        {/* Testimonials Slider */}
+        
         <div className="max-w-6xl mx-auto relative">
           <div className="overflow-hidden">
             <div 
@@ -70,7 +70,7 @@ const Testimonials = () => {
                 <div key={testimonial.id} className="w-full flex-shrink-0 px-4">
                   <div className="bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow duration-300">
                     <div className="flex items-start gap-6">
-                      {/* Left Side - Profile */}
+                     
                       <div className="flex-shrink-0">
                         <div className="relative">
                           <div className="w-16 h-16 rounded-full overflow-hidden ring-2 ring-[#003B95]">
@@ -85,7 +85,7 @@ const Testimonials = () => {
                         </div>
                       </div>
 
-                      {/* Right Side - Content */}
+                     
                       <div className="flex-1">
                         <div className="flex items-center justify-between mb-3">
                           <div>

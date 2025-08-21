@@ -1,0 +1,129 @@
+.destinationDetails {
+  min-height: 100vh;
+  background-color: #f8fafc;
+}
+
+.categoriesBar {
+  background-color: white;
+  border-bottom: 1px solid #e5e7eb;
+  padding: 1rem 0;
+}
+
+.categoryButton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 120px;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  transition: background-color 0.2s;
+}
+
+.categoryButton:hover {
+  background-color: #f1f5f9;
+}
+
+.categoryName {
+  font-weight: 500;
+  color: #1f2937;
+}
+
+.categoryCount {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin-top: 0.25rem;
+}
+
+.mainContent {
+  display: flex;
+  gap: 2rem;
+}
+
+.filterToggle {
+  display: none;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background-color: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  color: #1f2937;
+  margin-bottom: 1rem;
+}
+
+.filtersSidebar {
+  width: 300px;
+  flex-shrink: 0;
+  background: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.attractionsSection {
+  flex: 1;
+}
+
+.sortingBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.sortButton {
+  padding: 0.5rem 1rem;
+  background-color: white;
+  border-radius: 9999px;
+  font-weight: 500;
+  color: #1f2937;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  transition: box-shadow 0.2s;
+}
+
+.sortButton:hover {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 1024px) {
+  .mainContent {
+    flex-direction: column;
+  }
+
+  .filterToggle {
+    display: flex;
+  }
+
+  .filtersSidebar {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    z-index: 50;
+    border-radius: 0;
+    padding: 1rem;
+    overflow-y: auto;
+  }
+
+  .filtersSidebar.active {
+    display: block;
+  }
+}
+
+@media (max-width: 640px) {
+  .categoriesBar {
+    padding: 0.75rem 0;
+  }
+
+  .sortingBar {
+    margin-bottom: 1rem;
+  }
+
+  .sortButton {
+    padding: 0.375rem 0.75rem;
+    font-size: 0.875rem;
+  }
+} 

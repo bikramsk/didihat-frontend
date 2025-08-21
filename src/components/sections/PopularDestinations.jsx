@@ -4,7 +4,7 @@ const PopularDestinations = () => {
   return (
     <section className="py-8 bg-white">
       <div className="container mx-auto px-4">
-        {/* Section Header */}
+   
         <div className="flex flex-col items-start mb-8">
           <div className="flex items-center gap-2 mb-2">
             <div className="h-[1px] w-8 bg-[#003B95]"></div>
@@ -13,9 +13,9 @@ const PopularDestinations = () => {
           <h2 className="text-xl md:text-2xl font-bold text-gray-900">Top Picks for Indian Travelers</h2>
         </div>
 
-        {/* Destinations Grid */}
+        {/* Destinations */}
         <div className="grid grid-cols-12 gap-2">
-          {/* Left Column */}
+         
           <div className="col-span-8 grid grid-cols-2 gap-2">
             {/* Agra */}
             <div className="relative group cursor-pointer">
@@ -86,7 +86,7 @@ const PopularDestinations = () => {
             </div>
           </div>
 
-          {/* Right Column - Rishikesh */}
+          {/* Right Side */}
           <div className="col-span-4">
             <div className="relative group cursor-pointer h-full">
               <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-all duration-300 z-10 rounded-lg"></div>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useParams, Link } from 'react-router-dom';
-import { 
-  MapPin, 
+import { useParams, Link, useNavigate } from 'react-router-dom';
+import {
+  MapPin,
   Star,
   Users,
   BedDouble,
@@ -13,13 +13,20 @@ import {
   Share2,
   Heart,
   Flower2,
-  X
+  X,
+  ShoppingCart
 } from 'lucide-react';
+import { useCart } from '../../../../context/CartContext';
 import SearchBar from '../SearchBar/SearchBar';
 import { StaysProvider } from '../../context/StaysContext';
 import Reviews from '../Reviews/Reviews';
 
-const STRAPI_URL = 'http://localhost:1337';
+// const API_URL = import.meta.env.MODE === "production"
+//   ? "https://admin.didihat.com"
+//   : "http://localhost:1350";
+const API_URL = import.meta.env.VITE_PUBLIC_STRAPI_API_URL;
+
+  
 const API_TOKEN = import.meta.env.VITE_API_TOKEN;
 
 const formatPrice = (price) => {
@@ -76,15 +83,16 @@ const ImageGallery = ({ images }) => {
         {/* Main image slider */}
         <div className="flex-1 flex items-center justify-center relative">
           <div className="w-full h-full flex items-center justify-center p-4">
-            <img 
-              src={images[activeImageIndex]} 
-              alt={`Property view ${activeImageIndex + 1}`} 
-              className="max-w-[90vw] max-h-[80vh] w-auto h-auto object-contain"
-              onError={(e) => {
-                e.target.onerror = null;
-                e.target.src = 'https://via.placeholder.com/800x600?text=Image+Not+Found';
-              }}
-            />
+          <img 
+  src={images[activeImageIndex]} 
+  alt={`Property view ${activeImageIndex + 1}`} 
+  className="max-w-[90vw] max-h-[80vh] w-auto h-auto object-contain"
+  onError={(e) => {
+    e.target.onerror = null;
+    e.target.style.display = 'none';
+  }}
+/>
+
           </div>
           {/* Navigation buttons */}
           <button
@@ -109,18 +117,19 @@ const ImageGallery = ({ images }) => {
   // Responsive, modern gallery
   return (
     <div className="w-full">
-      {/* Mobile: Main image + horizontal thumbnails */}
+      {/* Mobile: Main image */}
       <div className="block md:hidden">
         <div className="w-full aspect-[16/9] rounded-xl overflow-hidden mb-2 cursor-pointer relative" onClick={() => { setActiveImageIndex(0); setShowAllImages(true); }}>
-          <img
-            src={images[0]}
-            alt="Main property view"
-            className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-            onError={(e) => {
-              e.target.onerror = null;
-              e.target.src = 'https://via.placeholder.com/800x600?text=Image+Not+Found';
-            }}
-          />
+        <img
+  src={images[0]}
+  alt="Main property view"
+  className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+  onError={(e) => {
+    e.target.onerror = null;
+    e.target.style.display = 'none'; 
+  }}
+/>
+
           {images.length > 1 && (
             <div className="absolute bottom-2 right-2 bg-black/60 text-white text-xs px-2 py-1 rounded">
               +{images.length - 1} more
@@ -149,22 +158,23 @@ const ImageGallery = ({ images }) => {
           </div>
         )}
       </div>
-      {/* Desktop: Modern grid */}
+      {/* Desktop */}
       <div className="hidden md:grid grid-cols-4 grid-rows-2 gap-2 h-[400px] relative">
         
         <div 
           className="col-span-2 row-span-2 relative rounded-l-xl overflow-hidden cursor-pointer group"
           onClick={() => { setActiveImageIndex(0); setShowAllImages(true); }}
         >
-          <img
-            src={images[0]}
-            alt="Main property view"
-            className="w-full h-full object-cover "
-            onError={(e) => {
-              e.target.onerror = null;
-              e.target.src = 'https://via.placeholder.com/800x600?text=Image+Not+Found';
-            }}
-          />
+         <img
+  src={images[0]}
+  alt="Main property view"
+  className="w-full h-full object-cover"
+  onError={(e) => {
+    e.target.onerror = null;
+    e.target.style.display = 'none';
+  }}
+/>
+
           <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
         </div>
         {/* Secondary images */}
@@ -177,14 +187,15 @@ const ImageGallery = ({ images }) => {
             onClick={() => { setActiveImageIndex(idx + 1); setShowAllImages(true); }}
           >
             <img
-              src={img}
-              alt={`Property view ${idx + 2}`}
-              className="w-full h-full object-cover"
-              onError={(e) => {
-                e.target.onerror = null;
-                e.target.src = 'https://via.placeholder.com/400x300?text=Image+Not+Found';
-              }}
-            />
+  src={img}
+  alt={`Property view ${idx + 2}`}
+  className="w-full h-full object-cover"
+  onError={(e) => {
+    e.target.onerror = null;
+    e.target.style.display = 'none';
+  }}
+/>
+
             <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
             {/*Show all photos*/}
             {idx === 3 && images.length > 5 && (
@@ -209,6 +220,8 @@ const ImageGallery = ({ images }) => {
 
 const StayDetail = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
+  const { addToCart } = useCart();
   const [stay, setStay] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -221,6 +234,10 @@ const StayDetail = () => {
   const [showShareDropdown, setShowShareDropdown] = useState(false);
   const shareDropdownRef = useRef(null);
   const [showCopyNotification, setShowCopyNotification] = useState(false);
+  const [successMessage, setSuccessMessage] = useState('');
+  const [validationError, setValidationError] = useState('');
+  const [fieldErrors, setFieldErrors] = useState({});
+
 
   // Add click outside handler
   useEffect(() => {
@@ -284,6 +301,69 @@ const StayDetail = () => {
     return basePrice + cleaningFee + serviceFee;
   };
 
+  const handleAddToCart = () => {
+    // Clear previous messages
+    setValidationError('');
+    setSuccessMessage('');
+    setFieldErrors({});
+
+    const errors = {};
+
+    // Validation checks
+    if (!checkIn) {
+      errors.checkIn = 'Please select check-in date';
+    }
+
+    if (!checkOut) {
+      errors.checkOut = 'Please select check-out date';
+    }
+
+    if (!selectedRoomType) {
+      errors.roomType = 'Please select a room type';
+    }
+
+    if (checkIn && checkOut && new Date(checkIn) >= new Date(checkOut)) {
+      errors.checkOut = 'Check-out date must be after check-in date';
+    }
+
+    // If there are any errors, set them and return
+    if (Object.keys(errors).length > 0) {
+      setFieldErrors(errors);
+      return;
+    }
+
+    const selectedRoom = stay.room_types.find(room => room.id === selectedRoomType);
+    if (!selectedRoom) {
+      setValidationError('Selected room type is not available');
+      return;
+    }
+
+    const cartItem = {
+      id: stay.id,
+      type: 'stay',
+      name: stay.name,
+      image: stay.stayimages?.[0] || stay.image,
+      location: stay.location,
+      selectedDate: checkIn,
+      checkOut: checkOut,
+      guests: adults + children,
+      rooms: rooms,
+      quantity: 1,
+      price: selectedRoom.price,
+      totalPrice: calculateTotalPrice(),
+      roomType: selectedRoom.name,
+      nights: calculateTotalNights()
+    };
+
+    addToCart(cartItem);
+    setSuccessMessage('Successfully added to cart! Redirecting to cart...');
+
+    // Redirect to cart after a short delay
+    setTimeout(() => {
+      navigate('/cart');
+    }, 1500);
+  };
+
   useEffect(() => {
     const fetchStayDetails = async () => {
       try {
@@ -292,13 +372,11 @@ const StayDetail = () => {
 
         // Fetch the specific stay using slug with populated relations
         const response = await fetch(
-          `${STRAPI_URL}/api/stays?filters[slug][$eq]=${id}&populate[stayimages][populate]=*&populate[room_types][populate]=*&populate[amenities][populate]=*`,
-          {
-            headers: {
-              Authorization: `Bearer ${API_TOKEN}`
-            }
-          }
+          `${API_URL}/api/stays?filters[slug][$eq]=${id}&populate[stayimages][populate]=*&populate[room_types][populate]=*&populate[amenities][populate]=*`
+          
         );
+
+
 
         const responseData = await response.json();
 
@@ -317,7 +395,7 @@ const StayDetail = () => {
         let processedFaqs = [];
         try {
           const faqResponse = await fetch(
-            `${STRAPI_URL}/api/faqs?filters[related_stay][id]=${stayId}&populate=*`,
+            `${API_URL}/api/faqs?filters[related_stay][id]=${stayId}&populate=*`,
             {
               headers: {
                 Authorization: `Bearer ${API_TOKEN}`
@@ -345,7 +423,7 @@ const StayDetail = () => {
         let processedHouseRules = null;
         try {
           const houseRuleResponse = await fetch(
-            `${STRAPI_URL}/api/house-rules?filters[stay][id]=${stayId}&populate=*`,
+            `${API_URL}/api/house-rules?filters[stay][id]=${stayId}&populate=*`,
             {
               headers: {
                 Authorization: `Bearer ${API_TOKEN}`
@@ -379,7 +457,7 @@ const StayDetail = () => {
 
         // Also fetch nearby places for this stay
         const nearbyResponse = await fetch(
-          `${STRAPI_URL}/api/nearby-places?filters[stay][id][$eq]=${stayId}&populate=*`,
+          `${API_URL}/api/nearby-places?filters[stay][id][$eq]=${stayId}&populate=*`,
           {
             headers: {
               Authorization: `Bearer ${API_TOKEN}`
@@ -413,9 +491,9 @@ const StayDetail = () => {
             let iconUrl = null;
             if (item.icon) {
               if (item.icon.data?.attributes?.url) {
-                iconUrl = `${STRAPI_URL}${item.icon.data.attributes.url}`;
+                iconUrl = `${API_URL}${item.icon.data.attributes.url}`;
               } else if (item.icon.url) {
-                iconUrl = `${STRAPI_URL}${item.icon.url}`;
+                iconUrl = `${API_URL}${item.icon.url}`;
               }
             }
             
@@ -438,9 +516,9 @@ const StayDetail = () => {
         
         // Process images
         const processedImages = stayData.stayimages?.data 
-          ? stayData.stayimages.data.map(img => `${STRAPI_URL}${img.attributes?.url}`)
+          ? stayData.stayimages.data.map(img => `${API_URL}${img.attributes?.url}`)
           : Array.isArray(stayData.stayimages) 
-            ? stayData.stayimages.map(img => `${STRAPI_URL}${img.url || img.attributes?.url}`) 
+            ? stayData.stayimages.map(img => `${API_URL}${img.url || img.attributes?.url}`) 
             : [];
             
         // Process room types
@@ -762,14 +840,14 @@ const StayDetail = () => {
                   <div className="md:w-1/2">
                     {room.Image?.data?.attributes?.url && (
                       <img
-                        src={`${STRAPI_URL}${room.Image.data.attributes.url}`}
+                        src={`${API_URL}${room.Image.data.attributes.url}`}
                         alt={room.name}
                         className="w-full h-64 object-cover rounded-lg"
                       />
                     )}
                     {!room.Image?.data?.attributes?.url && room.Image?.url && (
                       <img
-                        src={`${STRAPI_URL}${room.Image.url}`}
+                        src={`${API_URL}${room.Image.url}`}
                         alt={room.name}
                         className="w-full h-64 object-cover rounded-lg"
                       />
@@ -871,6 +949,11 @@ const StayDetail = () => {
                         </option>
                       ))}
                     </select>
+                    {fieldErrors.roomType && (
+                      <div className="mt-1 text-red-600 text-sm">
+                        {fieldErrors.roomType}
+                      </div>
+                    )}
                   </div>
 
                   <div className="grid grid-cols-2 gap-2 mb-4">
@@ -879,20 +962,42 @@ const StayDetail = () => {
                       <input
                         type="date"
                         value={checkIn}
-                        onChange={(e) => setCheckIn(e.target.value)}
+                        onChange={(e) => {
+                          setCheckIn(e.target.value);
+                          // Clear check-in error when user selects a date
+                          if (fieldErrors.checkIn) {
+                            setFieldErrors(prev => ({ ...prev, checkIn: undefined }));
+                          }
+                        }}
                         className="w-full border-0 p-0 focus:ring-0"
                         placeholder="mm/dd/yyyy"
                       />
+                      {fieldErrors.checkIn && (
+                        <div className="mt-1 text-red-600 text-sm">
+                          {fieldErrors.checkIn}
+                        </div>
+                      )}
                     </div>
                     <div>
                       <label className="block text-sm font-medium mb-1">Check-out</label>
                       <input
                         type="date"
                         value={checkOut}
-                        onChange={(e) => setCheckOut(e.target.value)}
+                        onChange={(e) => {
+                          setCheckOut(e.target.value);
+                          // Clear check-out error when user selects a date
+                          if (fieldErrors.checkOut) {
+                            setFieldErrors(prev => ({ ...prev, checkOut: undefined }));
+                          }
+                        }}
                         className="w-full border-0 p-0 focus:ring-0"
                         placeholder="mm/dd/yyyy"
                       />
+                      {fieldErrors.checkOut && (
+                        <div className="mt-1 text-red-600 text-sm">
+                          {fieldErrors.checkOut}
+                        </div>
+                      )}
                     </div>
                   </div>
                   
@@ -942,9 +1047,28 @@ const StayDetail = () => {
                   </div>
                 </div>
 
-                <button className="w-full bg-[#003B95] text-white py-3 rounded-lg font-medium hover:bg-[#002D70] transition-colors">
-                  Reserve now
-                </button>
+                <div className="space-y-3">
+
+                  <button  onClick={handleAddToCart} className="w-full bg-[#003B95] text-white py-3 rounded-lg font-medium hover:bg-[#002D70] transition-colors">
+                    Reserve now
+                  </button>
+
+
+
+                  {/* Success Message */}
+                  {successMessage && (
+                    <div className="bg-green-50 border border-green-200 rounded-lg p-3 text-green-700 text-sm">
+                      {successMessage}
+                    </div>
+                  )}
+
+                  {/* Error Message */}
+                  {validationError && (
+                    <div className="bg-red-50 border border-red-200 rounded-lg p-3 text-red-700 text-sm">
+                      {validationError}
+                    </div>
+                  )}
+                </div>
 
                 <div className="mt-4">
                   <div className="flex justify-between py-2">
@@ -988,15 +1112,15 @@ const StayDetail = () => {
           </div>
         </div>
 
-        {/* Reviews Section */}
-        <div className="container mx-auto mb-16">
-          <div className="bg-white border rounded-xl shadow-sm">
-            <div className="p-8">
-              
-              <Reviews stayId={stay.id} />
-            </div>
-          </div>
-        </div>
+{/* Reviews Section */}
+<div className="container mx-auto mb-16">
+  <div className="bg-white border rounded-xl shadow-sm">
+    <div className="p-8">
+      {stay && <Reviews stayId={stay.id} />}
+    </div>
+  </div>
+</div>
+
 
         {/* FAQ Section */}
         <div className="container mx-auto mb-16">

@@ -1,3 +1,35 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Inter:wght@100..900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary-blue: #003B95;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@layer base {
+  .font-logo {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+  }
+} */
+
+
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Inter:wght@100..900&display=swap');
 
 @tailwind base;
@@ -26,5 +58,35 @@ body {
     font-family: 'Montserrat', sans-serif;
     font-weight: 700;
     letter-spacing: -0.025em;
+  }
+}
+
+@layer components {
+  .animate-spin {
+    animation: spin 1s linear infinite;
+  }
+  
+  .animate-slide-in {
+    animation: slideIn 0.3s ease-out;
+  }
+  
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  @keyframes slideIn {
+    from {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
   }
 }

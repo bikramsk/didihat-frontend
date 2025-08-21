@@ -21,6 +21,7 @@ jobs:
       - name: Install dependencies & build
         run: |
           echo "VITE_PUBLIC_STRAPI_API_URL=${{ secrets.VITE_PUBLIC_STRAPI_API_URL }}" > .env
+          echo "VITE_API_TOKEN=${{ secrets.VITE_API_TOKEN }}" >> .env
           npm ci
           npm run build
 
@@ -29,7 +30,7 @@ jobs:
         with:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
-          key: ${{ secrets.VPS_PRIVATE_KEY }}  # renamed correctly
+          key: ${{ secrets.VPS_PRIVATE_KEY }}
           source: "dist/*"
           target: "/var/www/didihat-frontend"
           strip_components: 1

@@ -4,7 +4,12 @@ import { useStaysContext } from '../../context/StaysContext';
 import { Link } from 'react-router-dom';
 import styles from './StaysList.module.css';
 
-const STRAPI_URL = 'http://localhost:1337';
+// const API_URL = import.meta.env.MODE === "production"
+//   ? "https://admin.didihat.com"
+//   : "http://localhost:1350";
+
+//   const API_URL = import.meta.env.VITE_PUBLIC_STRAPI_API_URL;
+
 
 const sortOptions = [
   { id: 'recommended', label: 'Recommended' },

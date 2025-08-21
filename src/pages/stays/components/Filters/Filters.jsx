@@ -12,25 +12,7 @@ const popularFilters = [
   { id: 'hotels', label: 'Hotels' }
 ];
 
-// const amenities = [
-//   { id: 'parking', label: 'Parking' },
-//   { id: 'Room service', label: 'Room service' },
-//   { id: '24-hour front desk', label: '24-hour front desk' },
-//   { id: 'Family rooms', label: 'Family rooms' },
-//   { id: 'Free WiFi', label: 'Free WiFi' },
-//   { id: 'TV', label: 'TV' },
-//   { id: 'Doctor on Call', label: 'Doctor on Call' },
-//   { id: 'Non-smoking rooms', label: 'Non-smoking rooms' },
-//   { id: 'Restaurant', label: 'Restaurant' },
-//   { id: 'Pets allowed', label: 'Pets allowed' },
-//   { id: 'Airport shuttle', label: 'Airport shuttle' },
-//   { id: 'Swimming Pool', label: 'Swimming Pool' },
-//   { id: 'Wheelchair accessible', label: 'Wheelchair accessible' },
-//   { id: 'Spa and wellness centre', label: 'Spa and wellness centre' },
-//   { id: 'Fitness centre', label: 'Fitness centre' },
-//   { id: 'Hot tub/Jacuzzi', label: 'Hot tub/Jacuzzi' },
-//   { id: 'Electric vehicle charging station', label: 'Electric vehicle charging station' }
-// ];
+
 
 const amenities = [
   { id: 'parking', label: 'Parking' },
@@ -81,14 +63,7 @@ const propertyRatings = [
   { id: '1-star', label: '1 star' }
 ];
 
-// const mealOptions = [
-//   { id: 'Self catering', label: 'Self catering' },
-//   { id: 'Breakfast included', label: 'Breakfast included' },
-//   { id: 'All meals included', label: 'All meals included' },
-//   { id: 'All-inclusive', label: 'All-inclusive' },
-//   { id: 'Breakfast & lunch included', label: 'Breakfast & lunch included' },
-//   { id: 'Breakfast & dinner included', label: 'Breakfast & dinner included' }
-// ];
+
 
 const mealOptions = [
   { id: 'self-catering', label: 'Self catering' },
@@ -99,32 +74,7 @@ const mealOptions = [
   { id: 'breakfast-dinner', label: 'Breakfast & dinner included' }
 ];
 
-// const roomFacilities = [
-//   { id: 'Private bathroom', label: 'Private bathroom' },
-//   { id: 'View', label: 'View' },
-//   { id: 'Air conditioning', label: 'Air conditioning' },
-//   { id: 'Balcony', label: 'Balcony' },
-//   { id: 'Terrace', label: 'Terrace' },
-//   { id: 'Kitchen/kitchenette', label: 'Kitchen/kitchenette' },
-//   { id: 'Laundry', label: 'Laundry' },
-//   { id: 'Lake view', label: 'Lake view' },
-//   { id: 'Privacy curtain', label: 'Privacy curtain' },
-//   { id: 'Reading light', label: 'Reading light' },
-//   { id: 'Hot tub', label: 'Hot tub' },
-//   { id: 'Private pool', label: 'Private pool' },
-//   { id: 'Plunge pool', label: 'Plunge pool' },
-//   { id: 'Infinity pool', label: 'Infinity pool' },
-//   { id: 'Computer', label: 'Computer' },
-//   { id: 'Sea view', label: 'Sea view' },
-//   { id: 'Pool cover', label: 'Pool cover' },
-//   { id: 'Video games', label: 'Video games' },
-//   { id: 'Sauna', label: 'Sauna' },
-//   { id: 'Rooftop pool', label: 'Rooftop pool' },
-//   { id: 'Game console', label: 'Game console' },
-//   { id: 'Salt water pool', label: 'Salt water pool' },
-//   { id: 'Fan', label: 'Fan' },
-//   { id: 'Complimentary evening snacks', label: 'Complimentary evening snacks' }
-// ];
+
 
 const roomFacilities = [
   { id: 'private-bathroom', label: 'Private bathroom' },
