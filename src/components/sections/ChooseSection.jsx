@@ -53,7 +53,7 @@ const ChooseSection = () => {
             Escape to handpicked homestays where comfort meets local charm. From mountain cottages to heritage homes, discover stays that feel like yours. Your perfect retreat awaits.
             </p>
             <Link 
-              to="/holiday-homes"
+              to="/stays"
               className="inline-flex items-center gap-2 bg-white text-[#003B95] px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-semibold hover:bg-opacity-90 transition-all duration-300 group shadow-lg hover:shadow-xl cursor-pointer text-sm sm:text-base"
             >
               Explore Stays

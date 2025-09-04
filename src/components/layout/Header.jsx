@@ -123,7 +123,7 @@ const Header = () => {
             <div className="flex flex-wrap items-center gap-4 font-sans">
               <div className="hidden md:flex items-center">
                 <MapPin size={16} className="mr-1" />
-                <span className="text-sm">Uttarakhand, India</span>
+                <span className="text-sm">Didihat(UK), India</span>
               </div>
               <div className="flex items-center">
                 <Phone size={16} className="mr-1" />
@@ -172,7 +172,7 @@ const Header = () => {
          
             <div className="hidden md:flex items-center">
               <MapPin size={16} className="mr-1" />
-              <span className="text-sm">Uttarakhand, India</span>
+              <span className="text-sm">Didihat(UK), India</span>
             </div>
           
             <div className="flex items-center">
@@ -218,13 +218,20 @@ const Header = () => {
           : 'bg-transparent py-4 mt-[44px] border-white/10'
       }`}>
         <div className="container mx-auto px-4">
-          <div className="flex justify-between items-center font-logo">
+          <div className="flex justify-between items-center">
          
-            <Link to="/" className="transition-colors duration-300">
+            <Link 
+              to="/" 
+              className="transition-colors duration-300"
+              onClick={() => {
+               
+                setIsOpen(false);
+              }}
+            >
               <img 
                 src="/didihat-logo.png" 
                 alt="Didihat.com Logo" 
-                className={`h-12 transition-all duration-300 ${
+                className={`h-14 -ml-7 transition-all duration-300 ${
                   isScrolled ? 'opacity-100' : 'opacity-100 brightness-0 invert'
                 }`}
               />
@@ -247,14 +254,14 @@ const Header = () => {
 
             {/* Desktop */}
             <div className="hidden lg:flex items-center space-x-6 xl:space-x-12 font-sans">
-              <a href="/stays" className={`relative group py-2 text-sm xl:text-base ${
+              <Link to="/stays" className={`relative group py-2 text-sm xl:text-base ${
                 isScrolled ? 'text-gray-900 hover:text-[#003B95]' : 'text-white hover:text-[#4F8CE5]'
               }`}>
                 Stays
                 {!isScrolled && (
                   <div className="absolute bottom-[-20px] left-0 w-full h-[2px] bg-[#4F8CE5] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 )}
-              </a>
+              </Link>
               <a href="/attractions" className={`relative group py-2 text-sm xl:text-base ${
                 isScrolled ? 'text-gray-900 hover:text-[#003B95]' : 'text-white hover:text-[#4F8CE5]'
               }`}>
@@ -366,14 +373,14 @@ const Header = () => {
               <div className="lg:hidden absolute top-full left-0 right-0 bg-white font-sans shadow-lg mt-0 border-t border-gray-100">
                 <div className="container mx-auto px-4 py-3">
                   <div className="flex flex-col space-y-3">
-                    <a href="#" className="text-gray-900 hover:text-[#003B95] transition-colors duration-300 py-2">
+                    <Link to="/stays" className="text-gray-900 hover:text-[#003B95] transition-colors duration-300 py-2">
                       Stays
-                    </a>
+                    </Link>
                    
-                    <a href="#" className="text-gray-900 hover:text-[#003B95] transition-colors duration-300 py-2">
+                    <a href="/attractions" className="text-gray-900 hover:text-[#003B95] transition-colors duration-300 py-2">
                      Attractions
                     </a>
-                   <a href="#" className="text-gray-900 hover:text-[#003B95] transition-colors duration-300 py-2">
+                   <a href="/tour-packages" className="text-gray-900 hover:text-[#003B95] transition-colors duration-300 py-2">
                       Tour Packages
                     </a>
                     

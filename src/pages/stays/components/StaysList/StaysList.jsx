@@ -4,13 +4,6 @@ import { useStaysContext } from '../../context/StaysContext';
 import { Link } from 'react-router-dom';
 import styles from './StaysList.module.css';
 
-// const API_URL = import.meta.env.MODE === "production"
-//   ? "https://admin.didihat.com"
-//   : "http://localhost:1350";
-
-//   const API_URL = import.meta.env.VITE_PUBLIC_STRAPI_API_URL;
-
-
 const sortOptions = [
   { id: 'recommended', label: 'Recommended' },
   { id: 'price-low', label: 'Price (Low to High)' },
@@ -35,7 +28,10 @@ const StaysList = () => {
     setSortBy, 
     fetchStays, 
     pagination,
-    filters 
+    filters,
+    filteredCount,
+    hasActiveFilters,
+    setFilters
   } = useStaysContext();
   const [isDropdownOpen, setIsDropdownOpen] = React.useState(false);
   const [viewMode, setViewMode] = useState('grid');
@@ -44,6 +40,18 @@ const StaysList = () => {
     fetchStays(true);
   };
 
+  // Get the property type name for display
+  const getPropertyTypeName = () => {
+    if (filters.propertyTypes.length > 0) {
+      const type = filters.propertyTypes[0];
+      return type.charAt(0).toUpperCase() + type.slice(1);
+    }
+    return null;
+  };
+
+  const propertyTypeName = getPropertyTypeName();
+
+  // Show loading only when initially loading and no stays exist yet
   if (loading && !stays.length) {
     return (
       <div className="flex justify-center items-center min-h-[300px]">
@@ -61,14 +69,51 @@ const StaysList = () => {
     );
   }
 
+  // Show "No results found" when not loading and no stays available
   if (!loading && (!stays || stays.length === 0)) {
     return (
-    //   <div className="text-center py-8">
-    // <p className="text-xl font-semibold">No stays available</p>
-    //     <p className="text-gray-600">Please try again later</p>
-    //   </div>
-     <div className="flex justify-center items-center min-h-[300px]">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+      <div className="text-center py-12">
+        <div className="max-w-md mx-auto">
+          <div className="mb-6">
+            <svg className="mx-auto h-16 w-16 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-4m-5 0H3m2 0h3M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+            </svg>
+          </div>
+          <h3 className="text-xl font-semibold text-gray-900 mb-2">
+            {propertyTypeName 
+              ? `No ${propertyTypeName.toLowerCase()} found`
+              : 'No stays found'
+            }
+          </h3>
+          <p className="text-gray-600 mb-6">
+            {hasActiveFilters 
+              ? 'Try adjusting your filters or search criteria to find more options.'
+              : 'We could not find any stays matching your search. Please try again later.'
+            }
+          </p>
+          {hasActiveFilters && (
+            <button
+              onClick={() => {
+                setFilters({
+                  location: '',
+                  dates: null,
+                  guests: 1,
+                  priceRange: [0, 100000], // Increased to match other components
+                  popularFilters: [],
+                  amenities: [],
+                  propertyTypes: [],
+                  propertyRating: [],
+                  mealOptions: [],
+                  roomFacilities: [],
+                  activities: []
+                });
+              }}
+              className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+            >
+              Clear all filters
+            </button>
+          )}
+        </div>
       </div>
     );
   }
@@ -78,13 +123,10 @@ const StaysList = () => {
       {/* Header with count, sort, and view toggle */}
       <div className={styles.header}>
         <h2 className={styles.resultCount}>
-          {filters.location ? (
-            <span>{filters.location}: {stays.length} {stays.length === 1 ? 'stay' : 'stays'} found</span>
-          ) : filters.priceRange[0] > 0 || filters.priceRange[1] < 10000 ? (
-            <span>{stays.length} {stays.length === 1 ? 'stay' : 'stays'} found</span>
-          ) : (
-            <span>{pagination.total} {pagination.total === 1 ? 'stay' : 'stays'} found</span>
-          )}
+          {propertyTypeName 
+            ? `${filteredCount} ${propertyTypeName} found`
+            : `${filteredCount} stays found`
+          }
         </h2>
         <div className={styles.headerControls}>
           <div className={styles.viewToggle}>
@@ -200,7 +242,7 @@ const StaysList = () => {
       </div>
 
       {/* Load More Button */}
-      {pagination.hasMore && (
+      {pagination.hasMore && !loading && (
         <div className="flex justify-center mt-8">
           <button
             onClick={handleLoadMore}
@@ -215,5 +257,4 @@ const StaysList = () => {
   );
 };
 
-export default StaysList; 
-
+export default StaysList;

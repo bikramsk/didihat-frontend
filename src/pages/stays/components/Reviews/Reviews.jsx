@@ -35,7 +35,7 @@ export default function Reviews({ stayId }) {
       );
       setReviews(res.data.data || []);
     } catch (error) {
-      console.error("Error fetching reviews:", error);
+      // Error fetching reviews
     }
   };
 
@@ -69,8 +69,7 @@ export default function Reviews({ stayId }) {
 
       fetchReviews();
     } catch (error) {
-      console.error("Error submitting review:", error.response?.data || error);
-      alert("Failed to submit review. Check console for details.");
+      alert("Failed to submit review. Please try again.");
     }
   };
 

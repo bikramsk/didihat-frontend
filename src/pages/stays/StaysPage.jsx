@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, useLocation, useNavigate } from 'react-router-dom';
 import styles from './stays.module.css';
 import SearchBar from './components/SearchBar/SearchBar';
 import Filters from './components/Filters/Filters';
@@ -9,19 +9,47 @@ import { Sliders } from 'lucide-react';
 
 const StaysPageContent = () => {
   const [isFiltersOpen, setIsFiltersOpen] = useState(false);
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const location = useLocation();
+  const navigate = useNavigate();
   const { setFilters, fetchStays } = useStaysContext();
 
+  // Update the useEffect to handle clearing filters when no params
+
   useEffect(() => {
-    const location = searchParams.get('location');
-    if (location) {
-      setFilters(prev => ({
-        ...prev,
-        location: decodeURIComponent(location)
-      }));
-      fetchStays();
+    const locationParam = searchParams.get('location');
+    const propertyType = searchParams.get('propertyType');
+    
+    // Clear filters first - increased price range to accommodate all stays
+    const defaultFilters = {
+      location: '',
+      dates: null,
+      guests: 1,
+      priceRange: [0, 100000], // Increased to match StaysContext
+      popularFilters: [],
+      amenities: [],
+      propertyTypes: [],
+      propertyRating: [],
+      mealOptions: [],
+      roomFacilities: [],
+      activities: []
+    };
+
+    // If no search params, just set default filters
+    if (!locationParam && !propertyType) {
+      setFilters(defaultFilters);
+      return;
     }
-  }, [searchParams, setFilters, fetchStays]);
+
+    // Apply filters based on URL params
+    setFilters({
+      ...defaultFilters,
+      ...(locationParam && { location: decodeURIComponent(locationParam) }),
+      ...(propertyType && { 
+        propertyTypes: [decodeURIComponent(propertyType).toLowerCase()]
+      })
+    });
+  }, [location.search, setFilters]);
 
   const toggleFilters = () => {
     setIsFiltersOpen(!isFiltersOpen);
@@ -69,4 +97,4 @@ const StaysPage = () => {
   );
 };
 
-export default StaysPage; 
+export default StaysPage;

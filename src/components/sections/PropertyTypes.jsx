@@ -1,77 +1,97 @@
 import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
+import { useNavigate } from 'react-router-dom';
 import 'swiper/css';
 import 'swiper/css/navigation';
 
 const PropertyTypes = () => {
+  const navigate = useNavigate();
+
   const propertyTypes = [
     {
       type: "Hotels",
-      image: "/images/properties/hotels.jpg"
+      image: "/images/properties/hotels.jpg",
+      filter: "hotels"
     },
-    {
-      type: "Apartments",
-      image: "/images/properties/apartments.jpg"
-    },
+    
     {
       type: "Resorts",
-      image: "/images/properties/resorts.jpg"
+      image: "/images/properties/resorts.jpg",
+      filter: "resorts"
     },
     {
       type: "Villas",
-      image: "/images/properties/villas.jpg"
+      image: "/images/properties/villas.jpg",
+      filter: "villas"
+    },
+     {
+      type: "Homestays",
+      image: "/images/properties/holiday-homes.jpg",
+      filter: "Homestays"
     },
     {
       type: "Cabins",
-      image: "/images/properties/cabins.jpg"
+      image: "/images/properties/cabins.jpg",
+      filter: "cabins"
     },
     {
       type: "Cottages",
-      image: "/images/properties/cottages.jpg"
+      image: "/images/properties/cottages.jpg",
+      filter: "cottages"
     },
-   {
-        type: "Serviced Apartments",
-        image: "/images/properties/serviced-apartments.jpg"
-      },
-        {
-            type: "Holiday Homes",
-            image: "/images/properties/holiday-homes.jpg"
-        },
-        {
-            type: "Motels",
-            image: "/images/properties/motels.jpg"
-          },
-          {
-            type: "Guest Houses",
-            image: "/images/properties/test.jpg"
-          },
-          {
-            type: "Holiday Parks",
-            image: "/images/properties/test.jpg"
-            
-          },
-          {
-            type: "Campsites",
-            image: "/images/properties/test.jpg"
-            
-          },
-          {
-            type: "Farm Stays",
-            image: "/images/properties/test.jpg"
-            
-          },
-          {
-            type: "Tiny Houses",
-            image: "/images/properties/test.jpg"
-            
-          },
-          {
-            type: "Luxury Tents",
-            image: "/images/properties/test.jpg"
-            
-          },
+    {
+      type: "Serviced Apartments",
+      image: "/images/properties/serviced-apartments.jpg",
+      filter: "serviced apartments"
+    },
+   
+    {
+      type: "Motels",
+      image: "/images/properties/motels.jpg",
+      filter: "motels"
+    },
+    {
+      type: "Apartments",
+      image: "/images/properties/apartments.jpg",
+      filter: "apartments"
+    },
+    {
+      type: "Guest Houses",
+      image: "/images/properties/test.jpg",
+      filter: "guest houses"
+    },
+    {
+      type: "Holiday Parks",
+      image: "/images/properties/test.jpg",
+      filter: "holiday parks"
+    },
+    {
+      type: "Campsites",
+      image: "/images/properties/test.jpg",
+      filter: "campsites"
+    },
+    {
+      type: "Farm Stays",
+      image: "/images/properties/test.jpg",
+      filter: "farm stays"
+    },
+    {
+      type: "Tiny Houses",
+      image: "/images/properties/test.jpg",
+      filter: "tiny houses"
+    },
+    {
+      type: "Luxury Tents",
+      image: "/images/properties/test.jpg",
+      filter: "luxury tents"
+    },
   ];
+
+  const handlePropertyClick = (property) => {
+  
+    navigate(`/stays?propertyType=${encodeURIComponent(property.filter)}`);
+  };
 
   return (
     <section className="py-16 bg-white">
@@ -105,16 +125,20 @@ const PropertyTypes = () => {
           >
             {propertyTypes.map((property, index) => (
               <SwiperSlide key={index}>
-                <div className="group cursor-pointer">
+                <div 
+                  className="group cursor-pointer transition-transform hover:scale-105"
+                  onClick={() => handlePropertyClick(property)}
+                >
                   <div className="relative rounded-xl overflow-hidden">
                     <img 
                       src={property.image} 
                       alt={property.type}
-                      className="w-full h-48 object-cover"
+                      className="w-full h-48 object-cover group-hover:brightness-110 transition-all duration-300"
                     />
+                    <div className="absolute inset-0 bg-black bg-opacity-20 group-hover:bg-opacity-10 transition-all duration-300"></div>
                   </div>
                   <div className="mt-4">
-                    <h3 className="text-base font-semibold text-gray-900">
+                    <h3 className="text-base font-semibold text-gray-900 group-hover:text-[#003B95] transition-colors">
                       {property.type}
                     </h3>
                   </div>
@@ -159,4 +183,4 @@ const PropertyTypes = () => {
   );
 };
 
-export default PropertyTypes; 
+export default PropertyTypes;

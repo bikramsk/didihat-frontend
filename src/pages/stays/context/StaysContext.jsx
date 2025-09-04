@@ -26,7 +26,7 @@ export const StaysProvider = ({ children }) => {
   const [error, setError] = useState(null);
   const [pagination, setPagination] = useState({
     page: 1,
-    pageSize: 27,
+    pageSize: 100, 
     total: 0,
     hasMore: true
   });
@@ -34,7 +34,7 @@ export const StaysProvider = ({ children }) => {
     location: '',
     dates: null,
     guests: 1,
-    priceRange: [0, 50000],
+    priceRange: [0, 100000], 
     popularFilters: [],
     amenities: [],
     propertyTypes: [],
@@ -50,14 +50,20 @@ export const StaysProvider = ({ children }) => {
       setLoading(true);
       const page = loadMore ? pagination.page + 1 : 1;
       
-      let queryUrl = `${STRAPI_URL}/api/stays?populate=*&pagination[page]=${page}&pagination[pageSize]=${pagination.pageSize}`;
+  
+      const currentPageSize = filters.location ? 1000 : pagination.pageSize;
+      
+      let queryUrl = `${STRAPI_URL}/api/stays?populate=*&pagination[page]=${page}&pagination[pageSize]=${currentPageSize}`;
       
       // Add location filter if present
       if (filters.location) {
         queryUrl += `&filters[location][$containsi]=${encodeURIComponent(filters.location)}`;
       }
       
-      console.log('Fetching stays with URL:', queryUrl);
+      // Add property type filter if present
+      if (filters.propertyTypes.length > 0) {
+        queryUrl += `&filters[type][$containsi]=${encodeURIComponent(filters.propertyTypes[0])}`;
+      }
       
       const response = await fetch(queryUrl, {
         headers: {
@@ -71,15 +77,12 @@ export const StaysProvider = ({ children }) => {
       
       if (!response.ok) {
         const errorData = await response.json();
-        console.error('API Error Response:', errorData);
         throw new Error(errorData.error?.message || 'Failed to fetch stays');
       }
 
       const data = await response.json();
-      console.log('Raw API response:', data);
       
       if (!data.data || !Array.isArray(data.data)) {
-        console.error('Invalid data structure:', data);
         throw new Error('Invalid data structure received from API');
       }
 
@@ -106,17 +109,29 @@ export const StaysProvider = ({ children }) => {
           };
           return transformedStay;
         } catch (error) {
-          console.error('Error processing stay:', error, stay);
           return null;
         }
       }).filter(Boolean);
 
-      // Apply price range filter
+      // price range filter with improved price parsing
       const filteredStays = transformedStays.filter(stay => {
-        // Remove currency symbol and commas, then convert to number
-        const price = Number(stay.price.replace(/[^0-9.]/g, ''));
-        console.log('Filtering stay:', stay.name, 'price:', price, 'range:', filters.priceRange);
-        return price >= filters.priceRange[0] && price <= filters.priceRange[1];
+      
+        let price = 0;
+        try {
+          if (typeof stay.price === 'string') {
+            // Remove currency symbols, commas, and other
+            const cleanPrice = stay.price.replace(/[^\d.]/g, '');
+            price = parseFloat(cleanPrice) || 0;
+          } else if (typeof stay.price === 'number') {
+            price = stay.price;
+          }
+        } catch (error) {
+          price = 0;
+        }
+
+        const inRange = price >= filters.priceRange[0] && price <= filters.priceRange[1];
+        
+        return inRange;
       });
 
       setPagination({
@@ -129,14 +144,13 @@ export const StaysProvider = ({ children }) => {
       setStays(loadMore ? [...stays, ...filteredStays] : filteredStays);
       setError(null);
     } catch (error) {
-      console.error('Error fetching stays:', error);
       setError(error.message || 'Failed to fetch stays');
     } finally {
       setLoading(false);
     }
   };
 
-  // Function to apply filters and sorting
+
   const getFilteredAndSortedStays = () => {
     let filteredStays = [...stays];
 
@@ -294,15 +308,35 @@ export const StaysProvider = ({ children }) => {
       }
     });
     
-    console.log('Calculated counts:', counts);
     return counts;
   };
 
+  // Add this function before the value object
+  const hasActiveFilters = () => {
+    return (
+      filters.location !== '' ||
+      filters.propertyTypes.length > 0 ||
+      filters.amenities.length > 0 ||
+      filters.popularFilters.length > 0 ||
+      filters.mealOptions.length > 0 ||
+      filters.roomFacilities.length > 0 ||
+      filters.activities.length > 0 ||
+      filters.propertyRating.length > 0
+    );
+  };
+
   useEffect(() => {
+    // Reset pagination when filters change
+    setPagination(prev => ({
+      ...prev,
+      page: 1,
+      hasMore: true
+    }));
     fetchStays();
     // eslint-disable-next-line
-  }, [filters.location, filters.priceRange]);
+  }, [filters.location, filters.priceRange, filters.propertyTypes]);
 
+  // Update the value object at the bottom
   const value = {
     stays: getFilteredAndSortedStays(),
     loading,
@@ -313,7 +347,10 @@ export const StaysProvider = ({ children }) => {
     setSortBy,
     fetchStays,
     staysCounts: getStaysCounts(),
-    pagination
+    pagination,
+    filteredCount: getFilteredAndSortedStays().length,
+    totalCount: stays.length,
+    hasActiveFilters: hasActiveFilters()
   };
 
   return (
@@ -321,4 +358,4 @@ export const StaysProvider = ({ children }) => {
       {children}
     </StaysContext.Provider>
   );
-}; 
+};
