@@ -6,12 +6,12 @@ import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
 
-// const API_URL =
-//   import.meta.env.MODE === "production"
-//     ? "https://admin.didihat.com/api/reviews"
-//     : "http://localhost:1350/api/reviews";
+const API_URL =
+  import.meta.env.MODE === "production"
+    ? "https://admin.didihat.com/api/reviews"
+    : "http://localhost:1350/api/reviews";
 
-    const API_URL = import.meta.env.VITE_PUBLIC_STRAPI_API_URL;
+    // const API_URL = import.meta.env.VITE_PUBLIC_STRAPI_API_URL;
 
 export default function Reviews({ stayId }) {
   const [name, setName] = useState("");
