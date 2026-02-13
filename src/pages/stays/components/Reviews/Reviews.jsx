@@ -20,7 +20,7 @@ export default function Reviews({ stayId }) {
   const [comment, setComment] = useState("");
   const [reviews, setReviews] = useState([]);
 
-  // Custom navigation refs
+ 
   const prevRef = useRef(null);
   const nextRef = useRef(null);
 
@@ -37,7 +37,7 @@ export default function Reviews({ stayId }) {
       );
       setReviews(res.data.data || []);
     } catch (error) {
-      // Error fetching reviews
+      // Error 
     }
   };
 

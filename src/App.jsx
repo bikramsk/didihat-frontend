@@ -27,35 +27,14 @@ import { CartProvider } from './context/CartContext';
 
 function App() {
   return (
-    <CartProvider>
-      <Layout>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/stays" element={<StaysPage />} />
-          <Route path="/stays/:id" element={<StayDetail />} />
-          <Route path="/attractions" element={<AttractionsPage />} />
-          <Route path="/attraction/booking/:attractionId" element={<AttractionBooking />} />
-          <Route path="/attraction/:attractionId" element={<AttractionDetails />} />
-          <Route path="/tour-packages" element={<TourPackages />} />
-          <Route path="/tour-packages/category/:categorySlug" element={<TourPackages />} />
-          <Route path="/tour-packages/:locationId" element={<TourPackageDetails />} />
-          <Route path="/tour-packages/booking/:tourPackageId" element={<TourPackageBooking />} />
-          <Route path="/car-rentals" element={<CarRentalsPage />} />
-          <Route path="/car-rentals/:city" element={<CarRentalDetailsPage />} />
-          <Route path="/car-rentals/booking/:carSlug" element={<CarRentalBookingPage />} />
-          <Route path="/cart" element={<CartPage />} />
-          <Route path="/reset-password" element={<ResetPassword />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/about" element={<AboutUs />} />
-          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-          <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
-          <Route path="/contact-us" element={<ContactUs />} />
-          <Route path="/services" element={<Services />} />
-          <Route path="/advertise-with-us" element={<AdvertiseWithUs />} />
-        </Routes>
-      </Layout>
-    </CartProvider>
+    <Layout>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/stays" element={<StaysPage />} />
+        <Route path="/stays/:id" element={<StayDetail />} />
+        <Route path="/attractions" element={<Attractions />} />
+      </Routes>
+    </Layout>
   )
 }
 

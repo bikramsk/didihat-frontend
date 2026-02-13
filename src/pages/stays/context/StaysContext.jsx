@@ -5,9 +5,9 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 //   ? "https://admin.didihat.com"
 //   : "http://localhost:1350";
 
-  const STRAPI_URL = import.meta.env.VITE_PUBLIC_STRAPI_API_URL;
+const STRAPI_URL = import.meta.env.VITE_PUBLIC_STRAPI_API_URL;
 
-  
+
 const API_TOKEN = import.meta.env.VITE_API_TOKEN;
 
 const StaysContext = createContext();
@@ -26,7 +26,7 @@ export const StaysProvider = ({ children }) => {
   const [error, setError] = useState(null);
   const [pagination, setPagination] = useState({
     page: 1,
-    pageSize: 100, 
+    pageSize: 100,
     total: 0,
     hasMore: true
   });
@@ -34,7 +34,7 @@ export const StaysProvider = ({ children }) => {
     location: '',
     dates: null,
     guests: 1,
-    priceRange: [0, 100000], 
+    priceRange: [0, 100000],
     popularFilters: [],
     amenities: [],
     propertyTypes: [],
@@ -49,22 +49,22 @@ export const StaysProvider = ({ children }) => {
     try {
       setLoading(true);
       const page = loadMore ? pagination.page + 1 : 1;
-      
-  
+
+
       const currentPageSize = filters.location ? 1000 : pagination.pageSize;
-      
-      let queryUrl = `${STRAPI_URL}/api/stays?populate=*&pagination[page]=${page}&pagination[pageSize]=${currentPageSize}`;
-      
+
+      let queryUrl = `${STRAPI_URL}/api/stays?sort=createdAt:desc&populate=*&pagination[page]=${page}&pagination[pageSize]=${currentPageSize}`;
+
       // Add location filter if present
       if (filters.location) {
         queryUrl += `&filters[location][$containsi]=${encodeURIComponent(filters.location)}`;
       }
-      
+
       // Add property type filter if present
       if (filters.propertyTypes.length > 0) {
         queryUrl += `&filters[type][$containsi]=${encodeURIComponent(filters.propertyTypes[0])}`;
       }
-      
+
       const response = await fetch(queryUrl, {
         headers: {
           'Authorization': `Bearer ${API_TOKEN}`,
@@ -74,14 +74,14 @@ export const StaysProvider = ({ children }) => {
         credentials: 'include',
         mode: 'cors'
       });
-      
+
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(errorData.error?.message || 'Failed to fetch stays');
       }
 
       const data = await response.json();
-      
+
       if (!data.data || !Array.isArray(data.data)) {
         throw new Error('Invalid data structure received from API');
       }
@@ -115,7 +115,7 @@ export const StaysProvider = ({ children }) => {
 
       // price range filter with improved price parsing
       const filteredStays = transformedStays.filter(stay => {
-      
+
         let price = 0;
         try {
           if (typeof stay.price === 'string') {
@@ -130,7 +130,7 @@ export const StaysProvider = ({ children }) => {
         }
 
         const inRange = price >= filters.priceRange[0] && price <= filters.priceRange[1];
-        
+
         return inRange;
       });
 
@@ -156,7 +156,7 @@ export const StaysProvider = ({ children }) => {
 
     // Apply location filter
     if (filters.location) {
-      filteredStays = filteredStays.filter(stay => 
+      filteredStays = filteredStays.filter(stay =>
         stay.location.toLowerCase().includes(filters.location.toLowerCase())
       );
     }
@@ -178,7 +178,7 @@ export const StaysProvider = ({ children }) => {
     // Apply meal options filter
     if (filters.mealOptions.length > 0) {
       filteredStays = filteredStays.filter(stay =>
-        stay.mealOptions.some(meal => 
+        stay.mealOptions.some(meal =>
           filters.mealOptions.includes(meal.name.toLowerCase())
         )
       );
@@ -187,7 +187,7 @@ export const StaysProvider = ({ children }) => {
     // Apply room facilities filter
     if (filters.roomFacilities.length > 0) {
       filteredStays = filteredStays.filter(stay =>
-        stay.roomFacilities.some(facility => 
+        stay.roomFacilities.some(facility =>
           filters.roomFacilities.includes(facility.name.toLowerCase())
         )
       );
@@ -196,7 +196,7 @@ export const StaysProvider = ({ children }) => {
     // Apply activities filter
     if (filters.activities?.length > 0) {
       filteredStays = filteredStays.filter(stay =>
-        stay.activities.some(activity => 
+        stay.activities.some(activity =>
           activity && activity.name && filters.activities.includes(activity.name.toLowerCase())
         )
       );
@@ -205,7 +205,7 @@ export const StaysProvider = ({ children }) => {
     // Apply amenities filter
     if (filters.amenities.length > 0) {
       filteredStays = filteredStays.filter(stay =>
-        stay.amenities.some(amenity => 
+        stay.amenities.some(amenity =>
           amenity && amenity.name && filters.amenities.includes(amenity.name.toLowerCase())
         )
       );
@@ -219,7 +219,7 @@ export const StaysProvider = ({ children }) => {
             case '5-stars':
               return stay.propertyRating === 5;
             case 'breakfast':
-              return stay.mealOptions.some(meal => 
+              return stay.mealOptions.some(meal =>
                 meal.name.toLowerCase().includes('breakfast')
               );
             default:
@@ -232,12 +232,12 @@ export const StaysProvider = ({ children }) => {
     // Apply sorting
     switch (sortBy) {
       case 'price-low':
-        filteredStays.sort((a, b) => 
+        filteredStays.sort((a, b) =>
           parseInt(a.price.replace(/[^\d]/g, '')) - parseInt(b.price.replace(/[^\d]/g, ''))
         );
         break;
       case 'price-high':
-        filteredStays.sort((a, b) => 
+        filteredStays.sort((a, b) =>
           parseInt(b.price.replace(/[^\d]/g, '')) - parseInt(a.price.replace(/[^\d]/g, ''))
         );
         break;
@@ -307,7 +307,7 @@ export const StaysProvider = ({ children }) => {
         });
       }
     });
-    
+
     return counts;
   };
 

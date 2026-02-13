@@ -14,8 +14,9 @@ const ContactForm = () => {
   const [captchaQuestion, setCaptchaQuestion] = useState('');
   const [captchaAnswer, setCaptchaAnswer] = useState('');
   const [userCaptchaAnswer, setUserCaptchaAnswer] = useState('');
+  const [submitStatus, setSubmitStatus] = useState({ type: '', message: '' });
 
-  // math captcha
+ 
   React.useEffect(() => {
     const num1 = Math.floor(Math.random() * 10) + 1;
     const num2 = Math.floor(Math.random() * 10) + 1;
@@ -39,19 +40,20 @@ const ContactForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+    setSubmitStatus({ type: '', message: '' });
+
     if (!captchaVerified) {
-      alert('Please solve the captcha correctly');
+      setSubmitStatus({ type: 'error', message: 'Please solve the captcha correctly' });
       return;
     }
 
     setIsSubmitting(true);
-    
+
     try {
-     
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      
-      alert('Thank you for your message.');
+      const { EmailService } = await import('../../pages/email/emailService');
+      await EmailService.sendContactEmail(formData);
+
+      setSubmitStatus({ type: 'success', message: 'Thank you for your message. We will get back to you soon!' });
       setFormData({
         name: '',
         email: '',
@@ -61,15 +63,18 @@ const ContactForm = () => {
       });
       setUserCaptchaAnswer('');
       setCaptchaVerified(false);
+
       
-      // Generate new captcha
       const num1 = Math.floor(Math.random() * 10) + 1;
       const num2 = Math.floor(Math.random() * 10) + 1;
       setCaptchaQuestion(`${num1} + ${num2} = ?`);
       setCaptchaAnswer(num1 + num2);
-      
+
+
+      setTimeout(() => setSubmitStatus({ type: '', message: '' }), 5000);
+
     } catch (error) {
-      alert('Something went wrong. Please try again.');
+      setSubmitStatus({ type: 'error', message: error.message || 'Something went wrong. Please try again.' });
     } finally {
       setIsSubmitting(false);
     }
@@ -88,7 +93,7 @@ const ContactForm = () => {
 
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* Name */}
+    
           <div>
             <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
               Full Name *
@@ -108,7 +113,7 @@ const ContactForm = () => {
             </div>
           </div>
 
-          {/* Email */}
+      
           <div>
             <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
               Email Address *
@@ -130,7 +135,7 @@ const ContactForm = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* Phone */}
+       
           <div>
             <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
               Phone Number
@@ -146,7 +151,7 @@ const ContactForm = () => {
             />
           </div>
 
-          {/* Subject */}
+          
           <div>
             <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-2">
               Subject *
@@ -170,7 +175,6 @@ const ContactForm = () => {
             Message *
           </label>
           <div className="relative">
-            
             <textarea
               id="message"
               name="message"
@@ -206,14 +210,13 @@ const ContactForm = () => {
               placeholder="Answer"
             />
 
-
             {captchaVerified && (
               <span className="text-green-600 text-sm">✓ Verified</span>
             )}
           </div>
         </div>
 
-        {/* Submit */}
+        
         <button
           type="submit"
           disabled={isSubmitting || !captchaVerified}
@@ -231,6 +234,13 @@ const ContactForm = () => {
             </>
           )}
         </button>
+
+        {submitStatus.message && (
+          <div className={`mt-4 p-3 rounded-lg text-center text-sm font-medium animate-in fade-in duration-300 ${submitStatus.type === 'success' ? 'bg-green-50 text-green-700 border border-green-200' : 'bg-red-50 text-red-700 border border-red-200'
+            }`}>
+            {submitStatus.message}
+          </div>
+        )}
       </form>
     </div>
   );

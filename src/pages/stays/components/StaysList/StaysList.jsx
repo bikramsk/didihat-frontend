@@ -4,6 +4,14 @@ import { useStaysContext } from '../../context/StaysContext';
 import { Link } from 'react-router-dom';
 import styles from './StaysList.module.css';
 
+// const API_URL = import.meta.env.MODE === "production"
+//   ? "https://admin.didihat.com"
+//   : "http://localhost:1350";
+
+//   const API_URL = import.meta.env.VITE_PUBLIC_STRAPI_API_URL;
+
+
+
 const sortOptions = [
   { id: 'recommended', label: 'Recommended' },
   { id: 'price-low', label: 'Price (Low to High)' },
@@ -40,7 +48,7 @@ const StaysList = () => {
     fetchStays(true);
   };
 
-  // Get the property type name for display
+ 
   const getPropertyTypeName = () => {
     if (filters.propertyTypes.length > 0) {
       const type = filters.propertyTypes[0];
@@ -51,7 +59,7 @@ const StaysList = () => {
 
   const propertyTypeName = getPropertyTypeName();
 
-  // Show loading only when initially loading and no stays exist yet
+ 
   if (loading && !stays.length) {
     return (
       <div className="flex justify-center items-center min-h-[300px]">
@@ -69,7 +77,7 @@ const StaysList = () => {
     );
   }
 
-  // Show "No results found" when not loading and no stays available
+ 
   if (!loading && (!stays || stays.length === 0)) {
     return (
       <div className="text-center py-12">
@@ -98,7 +106,7 @@ const StaysList = () => {
                   location: '',
                   dates: null,
                   guests: 1,
-                  priceRange: [0, 100000], // Increased to match other components
+                  priceRange: [0, 100000], 
                   popularFilters: [],
                   amenities: [],
                   propertyTypes: [],
@@ -120,7 +128,7 @@ const StaysList = () => {
 
   return (
     <div className={styles.staysListContainer}>
-      {/* Header with count, sort, and view toggle */}
+     
       <div className={styles.header}>
         <h2 className={styles.resultCount}>
           {propertyTypeName 
@@ -182,7 +190,7 @@ const StaysList = () => {
             key={stay.id} 
             className={styles.stayCardLink}
             onClick={(e) => {
-              // Force page reload when clicking on a stay
+              
               window.location.href = `/stays/${stay.slug}`;
               e.preventDefault();
             }}

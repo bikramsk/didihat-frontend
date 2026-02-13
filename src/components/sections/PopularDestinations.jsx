@@ -85,7 +85,7 @@ const PopularDestinations = () => {
 
         {/* Destinations Grid */}
         <div className="grid grid-cols-12 gap-2">
-          {/* Left Side - 4 destinations in 2x2 grid */}
+        
           <div className="col-span-8 grid grid-cols-2 gap-2">
             {destinations.slice(0, 4).map((destination) => (
               <DestinationCard
@@ -96,10 +96,10 @@ const PopularDestinations = () => {
             ))}
           </div>
 
-          {/* Right Side - Rishikesh (large card) */}
+         
           <div className="col-span-4">
             <DestinationCard
-              destination={destinations[4]} // Rishikesh
+              destination={destinations[4]} 
               className="h-full"
               onClick={handleDestinationClick}
             />

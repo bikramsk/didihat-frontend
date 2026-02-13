@@ -1,56 +1,61 @@
 export const EmailService = {
-  
+
   async sendBookingConfirmation(bookingData) {
     try {
-      console.log('Sending email with data:', bookingData); 
-      
-  //     const API_URL = import.meta.env.MODE === "production"
-  // ? "https://admin.didihat.com"
-  // : "http://localhost:1350";
+      const API_URL = import.meta.env.VITE_PUBLIC_STRAPI_API_URL;
 
-  const API_URL = import.meta.env.VITE_PUBLIC_STRAPI_API_URL;
-
-const response = await fetch(`${API_URL}/api/send-booking-email`, {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json',
-    'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
-  },
-  body: JSON.stringify(bookingData),
-});
-      // const response = await fetch('http://localhost:1350/api/send-booking-email', {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //     'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
-      //   },
-      //   body: JSON.stringify(bookingData),
-      // });
-
-      console.log('Response status:', response.status); 
+      const response = await fetch(`${API_URL}/api/send-booking-email`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
+        },
+        body: JSON.stringify(bookingData),
+      });
 
       if (!response.ok) {
         const errorData = await response.json();
-        console.error('API Error:', errorData); 
         throw new Error(errorData.error?.message || 'Failed to send email');
       }
 
       const result = await response.json();
-      console.log('Email sent successfully:', result);
       return result;
     } catch (error) {
-      console.error('Error sending booking confirmation email:', error);
       throw error;
     }
   },
 
-  
+  async sendContactEmail(contactData) {
+    try {
+      const API_URL = import.meta.env.VITE_PUBLIC_STRAPI_API_URL;
+
+      const response = await fetch(`${API_URL}/api/send-contact-email`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(contactData),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error?.message || 'Failed to send');
+      }
+
+      const result = await response.json();
+      return result;
+    } catch (error) {
+      throw error;
+    }
+  },
+
+
   generatePaymentLink(bookingId) {
     const baseUrl = window.location.origin;
     return `${baseUrl}/payment/${bookingId}`;
   },
 
-  
+
   formatCartItemsForEmail(cartItems) {
     return cartItems.map(item => ({
       id: item.id,
@@ -72,34 +77,33 @@ const response = await fetch(`${API_URL}/api/send-booking-email`, {
   createEmailContent(user, cartItems, totals, paymentMethod) {
     const bookingId = `BOOK_${Date.now()}_${Math.random().toString(36).substr(2, 6).toUpperCase()}`;
     const paymentLink = this.generatePaymentLink(bookingId);
-    
-    console.log('Creating email content for user:', user.email); // Debug log
-    
+
     return {
       to: user.email,
       bookingId,
       subject: `Booking Confirmation - ${bookingId}`,
       customerName: user.name || user.firstName || user.username || 'Valued Customer',
+      customerPhone: user.phone || '',
       cartItems: this.formatCartItemsForEmail(cartItems),
       totals,
       paymentMethod: this.getPaymentMethodLabel(paymentMethod),
       paymentLink,
-      userId: user.id, // Add user ID for database storage
+      userId: user.id,
     };
   },
 
   //  template
   generateEmailHTML(user, cartItems, totals, paymentMethod, bookingId, paymentLink) {
     const customerName = user.name || user.firstName || 'Valued Customer';
-    
+
     const itemsHTML = cartItems.map(item => `
       <tr style="border-bottom: 1px solid #e5e7eb;">
         <td style="padding: 12px 8px;">
           <div style="font-weight: 600; color: #111827; margin-bottom: 4px;">${item.name}</div>
           <div style="font-size: 14px; color: #6b7280; margin-bottom: 2px;">${this.getTypeLabel(item.type)}</div>
-          ${item.location ? `<div style="font-size: 12px; color: #9ca3af;">📍 ${item.location}</div>` : ''}
-          ${item.selectedDate ? `<div style="font-size: 12px; color: #9ca3af;">📅 ${new Date(item.selectedDate).toLocaleDateString()}</div>` : ''}
-          ${item.selectedTime ? `<div style="font-size: 12px; color: #9ca3af;">🕐 ${item.selectedTime}</div>` : ''}
+          ${item.location ? `<div style="font-size: 12px; color: #9ca3af;"> ${item.location}</div>` : ''}
+          ${item.selectedDate ? `<div style="font-size: 12px; color: #9ca3af;"> ${new Date(item.selectedDate).toLocaleDateString()}</div>` : ''}
+          ${item.selectedTime ? `<div style="font-size: 12px; color: #9ca3af;"> ${item.selectedTime}</div>` : ''}
         </td>
         <td style="padding: 12px 8px; text-align: center; font-weight: 500;">${item.quantity}</td>
         <td style="padding: 12px 8px; text-align: right; font-weight: 600; color: #003B95;">₹${((item.totalPrice || item.price) * item.quantity).toLocaleString()}</td>
@@ -190,7 +194,7 @@ const response = await fetch(`${API_URL}/api/send-booking-email`, {
 
               <!-- Important Notes -->
               <div style="background-color: #fef3c7; border-left: 4px solid #f59e0b; padding: 16px; margin: 30px 0; border-radius: 0 8px 8px 0;">
-                <h4 style="margin: 0 0 8px 0; color: #92400e; font-size: 16px; font-weight: 600;">⚠️ Important</h4>
+                <h4 style="margin: 0 0 8px 0; color: #92400e; font-size: 16px; font-weight: 600;"> Important</h4>
                 <ul style="margin: 0; padding-left: 20px; color: #92400e; font-size: 14px;">
                   <li>Complete payment within 24 hours to secure your booking</li>
                   <li>You'll receive final confirmation after successful payment</li>
@@ -200,13 +204,13 @@ const response = await fetch(`${API_URL}/api/send-booking-email`, {
 
               <!-- Contact Info -->
               <div style="border-top: 2px solid #e5e7eb; padding-top: 30px; margin-top: 40px;">
-                <h4 style="margin: 0 0 16px 0; color: #374151; font-size: 16px; font-weight: 600;">Need Help? 🤝</h4>
+                <h4 style="margin: 0 0 16px 0; color: #374151; font-size: 16px; font-weight: 600;">Need Help? </h4>
                 <div style="background-color: #f8fafc; padding: 16px; border-radius: 8px;">
                   <p style="margin: 0 0 8px 0; font-size: 14px; color: #4b5563;">
-                    📧 Email: <a href="mailto:contact@didihat.com" style="color: #003B95; text-decoration: none; font-weight: 500;">contact@didihat.com</a>
+                    Email: <a href="mailto:contactus@didihat.com" style="color: #003B95; text-decoration: none; font-weight: 500;">contactus@didihat.com</a>
                   </p>
                   <p style="margin: 0; font-size: 14px; color: #4b5563;">
-                    📞 Phone: <a href="tel:+919410116800" style="color: #003B95; text-decoration: none; font-weight: 500;">+91 9410116800</a>
+                     Phone: <a href="tel:+919410116800" style="color: #003B95; text-decoration: none; font-weight: 500;">+91 9410116800</a>
                   </p>
                 </div>
               </div>
@@ -227,25 +231,6 @@ const response = await fetch(`${API_URL}/api/send-booking-email`, {
     `;
   },
 
- 
-  // createEmailContent(user, cartItems, totals, paymentMethod) {
-  //   const bookingId = `BOOK_${Date.now()}_${Math.random().toString(36).substr(2, 6).toUpperCase()}`;
-  //   const paymentLink = this.generatePaymentLink(bookingId);
-    
-  //   console.log('Creating email content for user:', user.email); 
-    
-  //   return {
-  //     to: user.email,
-  //     bookingId,
-  //     subject: `Booking Confirmation - ${bookingId}`,
-  //     customerName: user.name || user.firstName || 'Valued Customer',
-  //     cartItems: this.formatCartItemsForEmail(cartItems),
-  //     totals,
-  //     paymentMethod: this.getPaymentMethodLabel(paymentMethod),
-  //     paymentLink,
-  //   };
-  // },
-
   // Helper methods
   getTypeLabel(type) {
     const labels = {
@@ -262,7 +247,8 @@ const response = await fetch(`${API_URL}/api/send-booking-email`, {
       'upi': 'UPI Payment',
       'card': 'Credit/Debit Card',
       'netbanking': 'Net Banking',
-      'wallet': 'Digital Wallet'
+      'wallet': 'Digital Wallet',
+      'pay_at_hotel': 'Pay at Hotel'
     };
     return labels[method] || 'Selected Payment Method';
   }
