@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
 import 'swiper/css';
@@ -32,24 +33,24 @@ const ExploreIndia = () => {
       title: 'Rajasthan',
       places: '1500 properties'
     },
- 
-    {
+  {
       id: 5,
-      image: '/images/explore/banglore.jpg',
-      title: 'Banglore',
-      places: '1500 properties'
+      image: '/images/explore/mumbai.jpg',
+      title: 'Mumbai',
+      places: '1000 properties'
     },
+    
     {
       id: 6,
       image: '/images/explore/chennai.jpg',
       title: 'Chennai',
       places: '1100 properties'
     },
-    {
+   {
       id: 7,
-      image: '/images/explore/mumbai.jpg',
-      title: 'Mumbai',
-      places: '1000 properties'
+      image: '/images/explore/banglore.jpg',
+      title: 'Banglore',
+      places: '1500 properties'
     },
     {
       id: 8,
@@ -91,23 +92,23 @@ const ExploreIndia = () => {
           >
             {destinations.map((destination) => (
               <SwiperSlide key={destination.id}>
-                <div className="group cursor-pointer">
+                <Link to={`/attraction/${destination.title.toLowerCase()}`} className="block group cursor-pointer">
                   <div className="relative rounded-xl overflow-hidden">
                     <img
                       src={destination.image}
                       alt={destination.title}
-                      className="w-full h-48 object-cover"
+                      className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300"
                     />
                   </div>
                   <div className="mt-4">
-                    <h3 className="text-base font-semibold text-gray-900 mb-1">
+                    <h3 className="text-base font-semibold text-gray-900 mb-1 group-hover:text-[#003B95] transition-colors">
                       {destination.title}
                     </h3>
                     <div className="text-sm text-gray-600">
                       {destination.places}
                     </div>
                   </div>
-                </div>
+                </Link>
               </SwiperSlide>
             ))}
           </Swiper>

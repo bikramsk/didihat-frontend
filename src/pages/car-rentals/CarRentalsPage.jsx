@@ -92,7 +92,7 @@ const CarRentalsPage = () => {
             Explore our handcrafted car rental packages for unforgettable adventures
           </p>
           
-          {/* Enhanced Search Form */}
+         
           <div className="w-full max-w-6xl mx-auto">
             <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
               <div className="relative">

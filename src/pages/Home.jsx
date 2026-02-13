@@ -10,7 +10,7 @@ import AwesomePackages from '../components/sections/AwesomePackages';
 import Testimonials from '../components/sections/Testimonials';
 import PropertyTypes from '../components/sections/PropertyTypes';
 import ExploreIndia from '../components/sections/ExploreIndia';
-import UniqueProperties from '../components/sections/UniqueProperties';
+
 
 const Home = () => {
   return (
@@ -26,7 +26,7 @@ const Home = () => {
       <ExploreIndia />
      <HolidayHomes />
       <FeaturedHotels />
-      <UniqueProperties />
+     
       <AwesomePackages />
       <BookingSteps />
       <ChooseSection />      

@@ -197,7 +197,7 @@ const Filters = ({ onClose }) => {
       mealOptions: [],
       roomFacilities: [],
       activities: [],
-      priceRange: [0, 10000]
+      priceRange: [0, 100000] // Increased to match other components
     });
   };
 

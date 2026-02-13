@@ -11,6 +11,8 @@ const API_URL =
     ? "https://admin.didihat.com/api/reviews"
     : "http://localhost:1350/api/reviews";
 
+    // const API_URL = import.meta.env.VITE_PUBLIC_STRAPI_API_URL;
+
 export default function Reviews({ stayId }) {
   const [name, setName] = useState("");
   const [rating, setRating] = useState(0);
@@ -18,7 +20,7 @@ export default function Reviews({ stayId }) {
   const [comment, setComment] = useState("");
   const [reviews, setReviews] = useState([]);
 
-  // Custom navigation refs
+ 
   const prevRef = useRef(null);
   const nextRef = useRef(null);
 
@@ -35,7 +37,7 @@ export default function Reviews({ stayId }) {
       );
       setReviews(res.data.data || []);
     } catch (error) {
-      console.error("Error fetching reviews:", error);
+      // Error 
     }
   };
 
@@ -69,8 +71,7 @@ export default function Reviews({ stayId }) {
 
       fetchReviews();
     } catch (error) {
-      console.error("Error submitting review:", error.response?.data || error);
-      alert("Failed to submit review. Check console for details.");
+      alert("Failed to submit review. Please try again.");
     }
   };
 

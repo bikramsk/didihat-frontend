@@ -1,10 +1,16 @@
 import { Search, MapPin, Calendar, Users, Plus, Minus } from 'lucide-react';
 import { useState, useRef, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const HeroSection = () => {
+  const navigate = useNavigate();
   const [isGuestsOpen, setIsGuestsOpen] = useState(false);
   const [isLocationOpen, setIsLocationOpen] = useState(false);
   const [searchValue, setSearchValue] = useState('');
+  const [dates, setDates] = useState({
+    checkIn: '',
+    checkOut: ''
+  });
   const dropdownRef = useRef(null);
   const locationDropdownRef = useRef(null);
   const [guests, setGuests] = useState({
@@ -14,9 +20,10 @@ const HeroSection = () => {
   });
 
   const trendingDestinations = [
-    { name: 'Rishikesh' },
+   
+    { name: 'Uttarakhand' },
+    { name: 'Himachal Pradesh' },
     { name: 'Mumbai' },
-    { name: 'Jaipur' },
     { name: 'Rajasthan' },
     { name: 'New Delhi' }
   ];
@@ -62,6 +69,36 @@ const HeroSection = () => {
     return parts.join(', ');
   };
 
+  const handleDateChange = (type, value) => {
+    setDates(prev => {
+      const newDates = { ...prev, [type]: value };
+
+      // If check-in is set after check-out, clear check-out
+      if (type === 'checkIn' && prev.checkOut && new Date(value) > new Date(prev.checkOut)) {
+        newDates.checkOut = '';
+      }
+
+      // If check-out is set before check-in, clear check-in
+      if (type === 'checkOut' && prev.checkIn && new Date(value) < new Date(prev.checkIn)) {
+        newDates.checkIn = '';
+      }
+
+      return newDates;
+    });
+  };
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+
+    // Navigate to stays page with search parameters
+    const params = new URLSearchParams();
+    if (searchValue) {
+      params.append('location', searchValue);
+    }
+
+    navigate(`/stays?${params.toString()}`);
+  };
+
   return (
     <div className="relative min-h-screen">
       {/* Background Image with Overlay */}
@@ -83,7 +120,7 @@ const HeroSection = () => {
         </div>
 
         {/* Search Form */}
-        <div className="bg-white rounded-lg p-4 md:p-6 max-w-6xl mx-auto shadow-xl">
+        <form onSubmit={handleSearch} className="bg-white rounded-lg p-4 md:p-6 max-w-6xl mx-auto shadow-xl">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
             {/* Location */}
             <div className="relative" ref={locationDropdownRef}>
@@ -134,6 +171,9 @@ const HeroSection = () => {
                 <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
                 <input
                   type="date"
+                  value={dates.checkIn}
+                  onChange={(e) => handleDateChange('checkIn', e.target.value)}
+                  min={new Date().toISOString().split('T')[0]}
                   className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#003B95]"
                 />
               </div>
@@ -146,6 +186,9 @@ const HeroSection = () => {
                 <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
                 <input
                   type="date"
+                  value={dates.checkOut}
+                  onChange={(e) => handleDateChange('checkOut', e.target.value)}
+                  min={dates.checkIn || new Date().toISOString().split('T')[0]}
                   className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#003B95]"
                 />
               </div>
@@ -250,12 +293,12 @@ const HeroSection = () => {
 
           {/* Search Button */}
           <div className="mt-4 md:mt-6 text-center">
-            <button className="bg-[#003B95] text-white px-6 md:px-8 py-2.5 md:py-3 rounded-full hover:bg-[#002D70] transition-colors flex items-center justify-center mx-auto">
+            <button type="submit" className="bg-[#003B95] text-white px-6 md:px-8 py-2.5 md:py-3 rounded-full hover:bg-[#002D70] transition-colors flex items-center justify-center mx-auto">
               <Search size={18} className="mr-2" />
               Search
             </button>
           </div>
-        </div>
+        </form>
 
         {/* Stats */}
         <div className="mt-12 md:mt-16 grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 max-w-4xl mx-auto text-center text-white">
@@ -282,3 +325,4 @@ const HeroSection = () => {
 };
 
 export default HeroSection;
+  

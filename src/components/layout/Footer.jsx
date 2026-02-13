@@ -17,19 +17,19 @@ const Footer = () => {
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
        
-          <div className="sm:col-span-2 lg:col-span-1">
+          <div className="sm:col-span-2 lg:col-span-1 ">
             {/* <h3 className="text-xl md:text-2xl font-bold mb-4 md:mb-2">DIDIHAT.com</h3> */}
-            <Link to="/" className="transition-colors duration-300 ">
+            {/* <Link to="/" className="transition-colors duration-300">
               <img 
                 src="/didihat-logo.png" 
-                alt="Didihat.com Logo" 
-                className="h-12 brightness-0 invert mb-2"
+                alt="Didihat Logo" 
+                className="h-12 brightness-0 invert mb-2 -ml-7"
                 
               />
             </Link>
             <p className="text-gray-400 mb-8 leading-relaxed text-sm md:text-base">
               Travel the way you want
-            </p>
+            </p> */}
             <div className="mb-6">
               <h4 className="text-base md:text-lg font-semibold mb-3">Newsletter</h4>
               <form onSubmit={handleSubscribe} className="flex flex-col gap-3">
@@ -57,31 +57,31 @@ const Footer = () => {
             <h4 className="text-base md:text-lg font-semibold mb-4">Popular Destinations</h4>
             <ul className="space-y-2.5">
               <li>
-                <Link to="/" className="text-gray-400 flex items-center text-sm">
+                <Link to="/attraction/agra" className="text-gray-400 flex items-center text-sm">
                   <span className="w-1.5 h-1.5 bg-primary rounded-full mr-2"></span>
                   Agra
                 </Link>
               </li>
               <li>
-                <Link to="/" className="text-gray-400 flex items-center text-sm">
+                <Link to="/attraction/delhi" className="text-gray-400 flex items-center text-sm">
                   <span className="w-1.5 h-1.5 bg-primary rounded-full mr-2"></span>
                   Delhi
                 </Link>
               </li>
               <li>
-                <Link to="/" className="text-gray-400 flex items-center text-sm">
+                <Link to="/attraction/varanasi" className="text-gray-400 flex items-center text-sm">
                   <span className="w-1.5 h-1.5 bg-primary rounded-full mr-2"></span>
                   Varansai
                 </Link>
               </li>
               <li>
-                <Link to="/" className="text-gray-400 flex items-center text-sm">
+                <Link to="/attraction/rishikesh" className="text-gray-400 flex items-center text-sm">
                   <span className="w-1.5 h-1.5 bg-primary rounded-full mr-2"></span>
                   Rishikesh
                 </Link>
               </li>
               <li>
-                <Link to="/" className="text-gray-400 flex items-center text-sm">
+                <Link to="/attraction/kerala" className="text-gray-400 flex items-center text-sm">
                   <span className="w-1.5 h-1.5 bg-primary rounded-full mr-2"></span>
                   Kerala
                 </Link>
@@ -94,37 +94,37 @@ const Footer = () => {
             <h4 className="text-base md:text-lg font-semibold mb-4">Our Services</h4>
             <ul className="space-y-2.5">
               <li>
-                <Link to="/" className="text-gray-400 flex items-center text-sm">
+                <Link to="/services" className="text-gray-400 flex items-center text-sm hover:text-white transition-colors">
                   <span className="w-1.5 h-1.5 bg-primary rounded-full mr-2"></span>
                   List your Hotel
                 </Link>
               </li>
               <li>
-                <Link to="/" className="text-gray-400 flex items-center text-sm">
+                <Link to="/services" className="text-gray-400 flex items-center text-sm hover:text-white transition-colors">
                   <span className="w-1.5 h-1.5 bg-primary rounded-full mr-2"></span>
                   List your Holiday Home
                 </Link>
               </li>
               <li>
-                <Link to="/" className="text-gray-400 flex items-center text-sm">
+                <Link to="/services" className="text-gray-400 flex items-center text-sm hover:text-white transition-colors">
                   <span className="w-1.5 h-1.5 bg-primary rounded-full mr-2"></span>
                   List your Tour Package
                 </Link>
               </li>
               <li>
-                <Link to="/" className="text-gray-400 flex items-center text-sm">
+                <Link to="/services" className="text-gray-400 flex items-center text-sm hover:text-white transition-colors">
                   <span className="w-1.5 h-1.5 bg-primary rounded-full mr-2"></span>
                   List your Vehicle
                 </Link>
               </li>
               <li>
-                <Link to="/tour-guides" className="text-gray-400 flex items-center text-sm">
+                <Link to="/services" className="text-gray-400 flex items-center text-sm hover:text-white transition-colors">
                   <span className="w-1.5 h-1.5 bg-primary rounded-full mr-2"></span>
                   Tour Guide
                 </Link>
               </li>
               <li>
-                <Link to="/travel-agents" className="text-gray-400 flex items-center text-sm">
+                <Link to="/services" className="text-gray-400 flex items-center text-sm hover:text-white transition-colors">
                   <span className="w-1.5 h-1.5 bg-primary rounded-full mr-2"></span>
                   Travel Agent
                 </Link>
@@ -138,7 +138,7 @@ const Footer = () => {
             <ul className="space-y-3">
               <li className="flex items-center text-gray-400 text-sm">
                 <MapPin className="w-4 h-4 text-[#003B95] mr-2.5 flex-shrink-0" />
-                <span>Uttarakhand, India</span>
+                <span>Didihat(UK), India</span>
               </li>
               <li className="flex items-center text-gray-400 text-sm">
                 <Phone className="w-4 h-4 text-[#003B95] mr-2.5 flex-shrink-0" />
@@ -154,7 +154,7 @@ const Footer = () => {
               </li>
             </ul>
             <div className="mt-6">
-              <Link to="/contact" className="inline-flex items-center px-6 py-2.5 bg-[#003B95] text-white rounded-full hover:bg-[#002D70] transition-colors text-sm font-medium">
+              <Link to="/contact-us" className="inline-flex items-center px-6 py-2.5 bg-[#003B95] text-white rounded-full hover:bg-[#002D70] transition-colors text-sm font-medium">
                 Contact Us
               </Link>
             </div>
@@ -177,19 +177,19 @@ const Footer = () => {
                 Privacy Policy
               </Link>
               <span className="text-gray-600 hidden sm:inline">|</span>
-              <Link to="/terms" className="text-gray-400">
+              <Link to="/terms-and-conditions" className="text-gray-400">
                 Terms & Conditions
               </Link>
               <span className="text-gray-600 hidden sm:inline">|</span>
-              <Link to="/advertise" className="text-gray-400 ">
+              <Link to="/advertise-with-us" className="text-gray-400 hover:text-white transition-colors">
                 Advertise With Us
               </Link>
               <span className="text-gray-600 hidden sm:inline">|</span>
-              <Link to="/feedback" className="text-gray-400 ">
+              <Link to="/" className="text-gray-400 ">
                 Feedback
               </Link>
               <span className="text-gray-600 hidden sm:inline">|</span>
-              <Link to="/contact" className="text-gray-400 ">
+              <Link to="/contact-us" className="text-gray-400 ">
                 Contact
               </Link>
             </div>

@@ -264,7 +264,7 @@ const StayDetail = () => {
             setShowCopyNotification(false);
           }, 2000); 
         }).catch(err => {
-          console.error('Failed to copy:', err);
+          // Failed to copy to clipboard
         });
         break;
       case 'facebook':
@@ -415,7 +415,6 @@ const StayDetail = () => {
             }
           }
         } catch (err) {
-          console.error('Error fetching FAQs:', err);
           // Don't throw error to prevent breaking the whole page
         }
 
@@ -451,7 +450,6 @@ const StayDetail = () => {
             }
           }
         } catch (err) {
-          console.error('Error fetching house rules:', err);
           // Don't throw error to prevent breaking the whole page
         }
 
@@ -524,8 +522,6 @@ const StayDetail = () => {
         // Process room types
         const processedRoomTypes = stayData.room_types?.data
           ? stayData.room_types.data.map(room => {
-              // console.log('Room data structure:', room);
-              // console.log('Room Image data:', room.attributes?.Image || room.Image);
               return {
                 id: room.id,
                 name: room.attributes?.Name || room.Name,
@@ -601,7 +597,6 @@ const StayDetail = () => {
 
         setStay(transformedStay);
       } catch (err) {
-        console.error('Error fetching stay:', err);
         setError(err.message);
       } finally {
         setLoading(false);

@@ -17,6 +17,12 @@ import ResetPassword from './components/auth/ResetPassword';
 import Dashboard from './pages/dashboard/Dashboard';
 import Profile from './pages/profile/Profile';
 import CartPage from './pages/cart/CartPage';
+import AboutUs from './pages/AboutUs';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import TermsAndConditions from './pages/TermsAndConditions';
+import ContactUs from './pages/ContactUs';
+import Services from './pages/Services';
+import AdvertiseWithUs from './pages/AdvertiseWithUs';
 import { CartProvider } from './context/CartContext';
 
 function App() {
@@ -41,6 +47,14 @@ function App() {
           <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/profile" element={<Profile />} />
+
+          <Route path="/about" element={<AboutUs />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
+          <Route path="/contact-us" element={<ContactUs />} />
+          <Route path="/services" element={<Services />} />
+          <Route path="/advertise-with-us" element={<AdvertiseWithUs />} />
+
         </Routes>
       </Layout>
     </CartProvider>
